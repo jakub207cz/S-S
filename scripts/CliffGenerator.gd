@@ -38,8 +38,16 @@ func generate_cliff() -> void:
         points.append(Vector2(-base_width, current_y)) 
         
         while current_y <= max_y:
-            # abs() zajistí, že zuby rostou "do mapy", nikoliv ven
-            var offset = abs(noise.get_noise_1d(current_y)) * jaggedness
+            # 1. Zjistíme, v jakém "tieru" (každých 5000 pixelů = 500 m herní hloubky) jsme
+            var depth_tier = int(maxf(0.0, current_y) / 5000.0)
+            
+            # 2. Útes se v každém tieru přiblíží ke středu o 30 pixelů (zužování)
+            var narrowing = depth_tier * 30.0
+            
+            # 3. Zubatost se v každém tieru mírně zvýší (nebezpečnější výčnělky)
+            var current_jaggedness = jaggedness + (depth_tier * 20.0)
+            
+            var offset = abs(noise.get_noise_1d(current_y)) * current_jaggedness + narrowing
             points.append(Vector2(offset, current_y)) 
             current_y += segment_length
             
@@ -49,8 +57,13 @@ func generate_cliff() -> void:
         points.append(Vector2(base_width, current_y)) 
         
         while current_y <= max_y:
-            # Přidáme šumovou odchylku (+5000), ať oba útesy nejsou stejné
-            var offset = abs(noise.get_noise_1d(current_y + 5000.0)) * jaggedness
+            # Identická logika pro pravou stranu
+            var depth_tier = int(maxf(0.0, current_y) / 5000.0)
+            var narrowing = depth_tier * 30.0
+            var current_jaggedness = jaggedness + (depth_tier * 20.0)
+            
+            # Přidáme šumovou odchylku (+5000), ať oba útesy nejsou identicky zrcadlové
+            var offset = abs(noise.get_noise_1d(current_y + 5000.0)) * current_jaggedness + narrowing
             points.append(Vector2(-offset, current_y)) 
             current_y += segment_length
             
