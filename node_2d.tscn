@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://d35jw5gntvt6o"]
+
+[ext_resource type="Script" uid="uid://bqth8o3kost7e" path="res://scripts/Submarine.gd" id="1_xxx"]
+[ext_resource type="Script" uid="uid://cgc6ypy47ukj2" path="res://scripts/HealthComponent.gd" id="2_yyy"]
+[ext_resource type="Script" uid="uid://dltbtbdqc0y5u" path="res://scripts/PlayerUI.gd" id="3_zzz"]
+[ext_resource type="Texture2D" uid="uid://cwo3irv48or22" path="res://icon.svg" id="4_icon"]
+[ext_resource type="Script" path="res://scripts/CliffGenerator.gd" id="5_cliff"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(128, 128)
+
+[node name="World" type="Node2D" unique_id=908213786]
+
+[node name="Submarine" type="CharacterBody2D" parent="." unique_id=1109000746]
+position = Vector2(500, 300)
+script = ExtResource("1_xxx")
+
+[node name="HealthComponent" type="Node" parent="Submarine" unique_id=498829427]
+script = ExtResource("2_yyy")
+
+[node name="Sprite2D" type="Sprite2D" parent="Submarine" unique_id=1044731906]
+texture = ExtResource("4_icon")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Submarine" unique_id=655000058]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="Camera2D" type="Camera2D" parent="Submarine" unique_id=1861739529]
+zoom = Vector2(0.8, 0.8)
+position_smoothing_enabled = true
+
+[node name="PlayerUI" type="CanvasLayer" parent="." unique_id=1702368993 node_paths=PackedStringArray("depth_label", "materials_label", "hp_label")]
+script = ExtResource("3_zzz")
+depth_label = NodePath("MarginContainer/VBoxContainer/DepthLabel")
+materials_label = NodePath("MarginContainer/VBoxContainer/MaterialsLabel")
+hp_label = NodePath("MarginContainer/VBoxContainer/HPLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayerUI" unique_id=323229580]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerUI/MarginContainer" unique_id=624999049]
+layout_mode = 2
+
+[node name="HPLabel" type="Label" parent="PlayerUI/MarginContainer/VBoxContainer" unique_id=1395848553]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "HP: 100/100"
+
+[node name="DepthLabel" type="Label" parent="PlayerUI/MarginContainer/VBoxContainer" unique_id=1548798134]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Hloubka: 0m"
+
+[node name="MaterialsLabel" type="Label" parent="PlayerUI/MarginContainer/VBoxContainer" unique_id=965483389]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Loot: 0"
+
+[node name="LeftCliff" type="Node2D" parent="."]
+position = Vector2(-150, 0)
+script = ExtResource("5_cliff")
+base_width = 3000.0
+max_y = 120000.0
+segment_length = 180.0
+jaggedness = 200.0
+
+[node name="RightCliff" type="Node2D" parent="."]
+position = Vector2(1150, 0)
+script = ExtResource("5_cliff")
+is_right_side = true
+base_width = 3000.0
+max_y = 120000.0
+segment_length = 180.0
+jaggedness = 200.0
