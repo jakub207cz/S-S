@@ -1,31 +1,23 @@
 [gd_scene format=3 uid="uid://d35jw5gntvt6o"]
 
-[ext_resource type="Script" uid="uid://bqth8o3kost7e" path="res://scripts/Submarine.gd" id="1_xxx"]
-[ext_resource type="Script" uid="uid://cgc6ypy47ukj2" path="res://scripts/HealthComponent.gd" id="2_yyy"]
+[ext_resource type="PackedScene" uid="uid://bevfu6s8faeyw" path="res://submarine.tscn" id="1_epypp"]
 [ext_resource type="Script" uid="uid://dltbtbdqc0y5u" path="res://scripts/PlayerUI.gd" id="3_zzz"]
-[ext_resource type="Texture2D" uid="uid://cwo3irv48or22" path="res://icon.svg" id="4_icon"]
-[ext_resource type="Script" path="res://scripts/CliffGenerator.gd" id="5_cliff"]
+[ext_resource type="Script" uid="uid://c6gghshxq5p0m" path="res://scripts/CliffGenerator.gd" id="5_cliff"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
-size = Vector2(128, 128)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_epypp"]
+normal = Vector2(0, 1)
 
 [node name="World" type="Node2D" unique_id=908213786]
 
-[node name="Submarine" type="CharacterBody2D" parent="." unique_id=1109000746]
+[node name="Submarine" parent="." unique_id=1278720274 instance=ExtResource("1_epypp")]
 position = Vector2(500, 300)
-script = ExtResource("1_xxx")
 
-[node name="HealthComponent" type="Node" parent="Submarine" unique_id=498829427]
-script = ExtResource("2_yyy")
-
-[node name="Sprite2D" type="Sprite2D" parent="Submarine" unique_id=1044731906]
-texture = ExtResource("4_icon")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Submarine" unique_id=655000058]
-shape = SubResource("RectangleShape2D_1")
-
-[node name="Camera2D" type="Camera2D" parent="Submarine" unique_id=1861739529]
+[node name="Camera2D2" type="Camera2D" parent="Submarine" unique_id=981787369]
+position = Vector2(51, -6)
 zoom = Vector2(0.8, 0.8)
+limit_left = 0
+limit_top = -100
+limit_right = 2500
 position_smoothing_enabled = true
 
 [node name="PlayerUI" type="CanvasLayer" parent="." unique_id=1702368993 node_paths=PackedStringArray("depth_label", "materials_label", "hp_label")]
@@ -63,19 +55,17 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Loot: 0"
 
-[node name="LeftCliff" type="Node2D" parent="."]
-position = Vector2(-150, 0)
+[node name="LeftCliff" type="Node2D" parent="." unique_id=944756991]
+position = Vector2(52, 3)
 script = ExtResource("5_cliff")
-base_width = 3000.0
-max_y = 120000.0
-segment_length = 180.0
-jaggedness = 200.0
 
-[node name="RightCliff" type="Node2D" parent="."]
-position = Vector2(1150, 0)
+[node name="RightCliff" type="Node2D" parent="." unique_id=1862698052]
+position = Vector2(2431, 0)
 script = ExtResource("5_cliff")
 is_right_side = true
-base_width = 3000.0
-max_y = 120000.0
-segment_length = 180.0
-jaggedness = 200.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=402614364]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1234456011]
+position = Vector2(569, 234)
+shape = SubResource("WorldBoundaryShape2D_epypp")

@@ -6,7 +6,6 @@ class_name CliffGenerator
 
 @export var is_right_side: bool = false
 @export var base_width: float = 3000.0 # Jak daleko do šířky útes (neviditelně) sahá, zabraňuje vypadnutí
-@export var max_y: float = 120000.0 # Dostatečně velká hloubka pro Hloubku 10 000
 @export var segment_length: float = 180.0 # Vzdálenost bodů na ose Y. Čím nižší, tím detailnější.
 @export var jaggedness: float = 200.0 # Jak moc čouhají zuby do úrovně hráče
 
@@ -27,7 +26,12 @@ func _ready() -> void:
 
 func generate_cliff() -> void:
     var points := PackedVector2Array()
-    var current_y: float = -2000.0 # Započneme už nad hranicí obrazovky, ať nejsou vidět useklé textury
+    # Camera starts looking down at Y ~ 0, submarine spawns at 300
+    # Let's begin the cliff polygon lower down (Y = 300, submarine level)
+    # The first segments will be straight down to Y = 800
+    var current_y: float = 300.0 
+    var max_y: float = GameManager.MAX_GAME_DEPTH * GameManager.PIXELS_PER_METER
+    var floor_depth: float = 10.0 * GameManager.PIXELS_PER_METER # 10 metrů tlustá podlaha
     
     var noise = FastNoiseLite.new()
     noise.seed = randi()
@@ -37,37 +41,90 @@ func generate_cliff() -> void:
         # ------- LEVÝ ÚTES -------
         points.append(Vector2(-base_width, current_y)) 
         
+        # Rovná stěna od ponorky (y=300) dolu (y=800)
+        points.append(Vector2(0, current_y))
+        points.append(Vector2(0, 800.0))
+        
+        current_y = 800.0
+        
         while current_y <= max_y:
-            # 1. Zjistíme, v jakém "tieru" (každých 5000 pixelů = 500 m herní hloubky) jsme
-            var depth_tier = int(maxf(0.0, current_y) / 5000.0)
-            
-            # 2. Útes se v každém tieru přiblíží ke středu o 30 pixelů (zužování)
-            var narrowing = depth_tier * 30.0
-            
-            # 3. Zubatost se v každém tieru mírně zvýší (nebezpečnější výčnělky)
-            var current_jaggedness = jaggedness + (depth_tier * 20.0)
-            
-            var offset = abs(noise.get_noise_1d(current_y)) * current_jaggedness + narrowing
+            # abs() zajistí, že zuby rostou "do mapy", nikoliv ven
+            var offset = abs(noise.get_noise_1d(current_y)) * jaggedness
             points.append(Vector2(offset, current_y)) 
             current_y += segment_length
             
-        points.append(Vector2(-base_width, max_y)) 
+        # Zastavíme generování přesně na dně (max_y)
+        var final_offset = abs(noise.get_noise_1d(max_y)) * jaggedness
+        points.append(Vector2(final_offset, max_y)) 
+        
+        # --- PODLAHA ---
+        # Protáhneme pevninu od tohoto posledního bodu směrem do středu mapy o hodně (aby se v půlce potkala s druhou stranou)
+        points.append(Vector2(base_width, max_y))
+        points.append(Vector2(base_width, max_y + floor_depth))
+        
+        # A pak ji uzavřeme přes hluboký spodek zpět do původní hrany báze
+        points.append(Vector2(-base_width, max_y + floor_depth))
+        
     else:
         # ------- PRAVÝ ÚTES -------
-        points.append(Vector2(base_width, current_y)) 
+        points.append(Vector2(base_width, 300.0)) 
+        
+        # Rovná stěna od ponorky (y=300) dolu (y=800)
+        points.append(Vector2(0, 300.0))
+        points.append(Vector2(0, 800.0))
+        
+        current_y = 800.0
         
         while current_y <= max_y:
-            # Identická logika pro pravou stranu
-            var depth_tier = int(maxf(0.0, current_y) / 5000.0)
-            var narrowing = depth_tier * 30.0
-            var current_jaggedness = jaggedness + (depth_tier * 20.0)
-            
-            # Přidáme šumovou odchylku (+5000), ať oba útesy nejsou identicky zrcadlové
-            var offset = abs(noise.get_noise_1d(current_y + 5000.0)) * current_jaggedness + narrowing
+            # Přidáme šumovou odchylku (+5000), ať oba útesy nejsou stejné
+            var offset = abs(noise.get_noise_1d(current_y + 5000.0)) * jaggedness
             points.append(Vector2(-offset, current_y)) 
             current_y += segment_length
             
-        points.append(Vector2(base_width, max_y)) 
+        var final_offset = abs(noise.get_noise_1d(max_y + 5000.0)) * jaggedness
+        points.append(Vector2(-final_offset, max_y)) 
+        
+        # --- PODLAHA ---
+        # Protáhneme pevninu od tohoto posledního bodu směrem do středu mapy (do levé strany)
+        points.append(Vector2(-base_width, max_y))
+        points.append(Vector2(-base_width, max_y + floor_depth))
+        
+        points.append(Vector2(base_width, max_y + floor_depth))
         
     poly.polygon = points
     collision.polygon = points
+
+func _draw() -> void:
+    # Vykreslíme značky hloubky každých 100 metrů
+    var max_depth_meters: int = int(GameManager.MAX_GAME_DEPTH)
+    var pixels_per_meter: float = GameManager.PIXELS_PER_METER
+    
+    # Použijeme výchozí font systému/Godotu
+    var font := ThemeDB.fallback_font
+    var font_size := 32
+    var color := Color(1, 1, 1, 0.5) # Poloprůhledná bílá
+    
+    # Kreslit budeme jen od hladiny (Y=0) do maximální hloubky
+    # Krok je 100 metrů
+    for m in range(100, max_depth_meters, 100):
+        # Ponorka startuje s Y v 300 pixelech a bere to za 0m. 
+        # Takže k vypočteným pixelům vždy připočítáme 300.0 (viz starting_position lodi)
+        var y_pos: float = float(m) * pixels_per_meter + 300.0
+        
+        # Aby čára začínala přesně na kraji skály, musíme vygenerovat stejný noise v y_pos
+        var noise = FastNoiseLite.new()
+        noise.seed = randi() # VAROVÁNÍ: randi() v _draw nedá stejný seed jako v _ready(). Pro zjednodušení dáme čáru jen paušálně. 
+        # Aby to bylo dokonalé, vytažení "šumu" jako proměnou je lepší, viz oprava níže:
+        
+        # Místo složitého napojování Noise to prostě nakreslíme fixně do prostoru (hráč si to domyslí jako "bojky" atp.)
+        # případně do okraje. Skála nikdy nevyčuhuje dál než `jaggedness`. 
+        var start_x: float = jaggedness
+        
+        if not is_right_side:
+            # Na levé straně
+            draw_line(Vector2(start_x, y_pos), Vector2(start_x + 300, y_pos), color, 4.0)
+            draw_string(font, Vector2(start_x + 50, y_pos - 10), str(m) + "m", HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
+        else:
+            # Na pravé straně
+            draw_line(Vector2(-start_x, y_pos), Vector2(-start_x - 300, y_pos), color, 4.0)
+            draw_string(font, Vector2(-start_x - 150, y_pos - 10), str(m) + "m", HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)

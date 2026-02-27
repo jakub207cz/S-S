@@ -3,6 +3,9 @@ extends Node
 # Tento skript uchovává globální stav vaší hry. Nemá řešit fyziku, ale 
 # má shromažďovat data (hloubka, peníze) a oznamovat změny pomocí signálů.
 
+const PIXELS_PER_METER: float = 100.0
+const MAX_GAME_DEPTH: float = 1600.0
+
 # -----------------
 # 1. Signály (Events)
 # -----------------
@@ -76,3 +79,14 @@ func on_player_return() -> void:
     self.current_depth = 0.0
     player_returned.emit()
     get_tree().change_scene_to_file("res://scenes/Base.tscn")
+
+func get_speed_multiplier() -> float:
+    # Násobitel rychlosti lodi podle hloubky
+    if current_depth >= 1200.0:
+        return 5.0
+    elif current_depth >= 600.0:
+        return 4.0
+    elif current_depth >= 200.0:
+        return 3.0
+    
+    return 1.5

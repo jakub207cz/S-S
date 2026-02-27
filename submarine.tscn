@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bevfu6s8faeyw"]
+
+[ext_resource type="Script" uid="uid://bqth8o3kost7e" path="res://scripts/Submarine.gd" id="1_qvldv"]
+[ext_resource type="Script" uid="uid://cgc6ypy47ukj2" path="res://scripts/HealthComponent.gd" id="2_wxksq"]
+[ext_resource type="Texture2D" uid="uid://cwo3irv48or22" path="res://icon.svg" id="3_a2b0v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(128, 128)
+
+[node name="Submarine" type="CharacterBody2D" unique_id=1278720274]
+script = ExtResource("1_qvldv")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=403481900]
+script = ExtResource("2_wxksq")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2022915560]
+texture = ExtResource("3_a2b0v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1340881943]
+shape = SubResource("RectangleShape2D_1")
