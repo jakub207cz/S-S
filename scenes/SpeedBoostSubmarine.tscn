@@ -12,6 +12,7 @@ size = Vector2(141, 105)
 
 [node name="SpeedBoostSubmarine" type="Area2D" unique_id=1925210616]
 z_index = 0
+z_as_relative = false
 script = ExtResource("1_speed")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1498669066]
