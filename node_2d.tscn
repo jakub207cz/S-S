@@ -451,21 +451,27 @@ position = Vector2(52, 3)
 script = ExtResource("5_cliff")
 
 [node name="Trader100" parent="LeftCliff" unique_id=1523412051 instance=ExtResource("13_trader")]
+z_as_relative = true
 position = Vector2(420, 10300)
 
 [node name="Trader200" parent="LeftCliff" unique_id=1749714372 instance=ExtResource("13_trader")]
+z_as_relative = true
 position = Vector2(420, 20300)
 
 [node name="Trader400" parent="LeftCliff" unique_id=1778866283 instance=ExtResource("13_trader")]
+z_as_relative = true
 position = Vector2(420, 40300)
 
 [node name="Trader600" parent="LeftCliff" unique_id=1810286715 instance=ExtResource("13_trader")]
+z_as_relative = true
 position = Vector2(420, 60300)
 
 [node name="Trader900" parent="LeftCliff" unique_id=948287571 instance=ExtResource("13_trader")]
+z_as_relative = true
 position = Vector2(420, 90300)
 
 [node name="Trader1200" parent="LeftCliff" unique_id=723119949 instance=ExtResource("13_trader")]
+z_as_relative = true
 position = Vector2(420, 120300)
 
 [node name="RightCliff" type="Node2D" parent="." unique_id=1862698052]
@@ -659,7 +665,7 @@ position = Vector2(2357, 334)
 position = Vector2(2379.0002, 333)
 
 [node name="Background" type="Control" parent="." unique_id=1047151097]
-z_index = -1
+z_index = -5
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5

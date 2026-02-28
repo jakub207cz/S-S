@@ -14,6 +14,7 @@ var scrap_scene: PackedScene = preload("res://scenes/ScrapItem.tscn")
 @onready var static_body = StaticBody2D.new()
 @onready var poly = Polygon2D.new()
 @onready var collision = CollisionPolygon2D.new()
+var depth_drawer: Node2D = Node2D.new()
 
 func _ready() -> void:
     # Programové sestavení uzlů tak at neplevelíme manuálně scénu
@@ -26,6 +27,12 @@ func _ready() -> void:
     
     # Útesy musí být vykreslovány nad podvodním panelem
     z_index = 20
+    
+    # Texty s hloubkou se musí vykreslovat pod podvodním panelem i pod ponorkami
+    depth_drawer.z_as_relative = false
+    depth_drawer.z_index = -1
+    depth_drawer.draw.connect(_on_depth_drawer_draw)
+    add_child(depth_drawer)
 
     generate_cliff()
     # spawn_scrap()  # NAHRAZENO PŘES LOOT SPAWNER
@@ -102,7 +109,7 @@ func generate_cliff() -> void:
     poly.polygon = points
     collision.polygon = points
 
-func _draw() -> void:
+func _on_depth_drawer_draw() -> void:
     # Vykreslíme značky hloubky každých 100 metrů
     var max_depth_meters: int = int(GameManager.MAX_GAME_DEPTH)
     var pixels_per_meter: float = GameManager.PIXELS_PER_METER
@@ -125,12 +132,12 @@ func _draw() -> void:
         
         if not is_right_side:
             # Na levé straně
-            draw_line(Vector2(start_x, y_pos), Vector2(start_x + 300, y_pos), color, 4.0)
-            draw_string(font, Vector2(start_x + 50, y_pos - 10), str(m) + "m", HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
+            depth_drawer.draw_line(Vector2(start_x, y_pos), Vector2(start_x + 300, y_pos), color, 4.0)
+            depth_drawer.draw_string(font, Vector2(start_x + 50, y_pos - 10), str(m) + "m", HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
         else:
             # Na pravé straně
-            draw_line(Vector2(-start_x, y_pos), Vector2(-start_x - 300, y_pos), color, 4.0)
-            draw_string(font, Vector2(-start_x - 150, y_pos - 10), str(m) + "m", HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
+            depth_drawer.draw_line(Vector2(-start_x, y_pos), Vector2(-start_x - 300, y_pos), color, 4.0)
+            depth_drawer.draw_string(font, Vector2(-start_x - 150, y_pos - 10), str(m) + "m", HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
 
 
 
