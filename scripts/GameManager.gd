@@ -72,7 +72,7 @@ func on_player_death() -> void:
 	self.collected_materials = 0
 	self.current_depth = 0.0
 	player_died.emit()
-	get_tree().change_scene_to_file("res://scenes/Base.tscn")
+	get_tree().change_scene_to_file("res://GameOver.tscn")
 
 func on_player_return() -> void:
 	# Při návratu se sebraný loot převede do "banky"

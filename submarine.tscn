@@ -90,10 +90,13 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wxksq"]
 radius = 39.999596
-height = 146.01648
+height = 129.99869
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a2b0v"]
 size = Vector2(16.495394, 42.99956)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wxksq"]
+size = Vector2(16.495394, 18.49531)
 
 [node name="Submarine" type="CharacterBody2D" unique_id=1278720274]
 script = ExtResource("1_qvldv")
@@ -106,10 +109,11 @@ texture_filter = 1
 position = Vector2(102.00001, 91)
 scale = Vector2(1.9492188, 1.9296876)
 sprite_frames = SubResource("SpriteFrames_o4pi2")
-frame_progress = 0.43283862
+animation = &"movement"
+frame_progress = 0.21063034
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1340881943]
-position = Vector2(102, 103.00001)
+position = Vector2(94, 103.00001)
 rotation = 1.5752863
 shape = SubResource("CapsuleShape2D_wxksq")
 
@@ -117,3 +121,8 @@ shape = SubResource("CapsuleShape2D_wxksq")
 position = Vector2(94.00338, 55.247795)
 rotation = 1.5752863
 shape = SubResource("RectangleShape2D_a2b0v")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="." unique_id=1219954450]
+position = Vector2(166.748, 101.94499)
+rotation = 1.5752863
+shape = SubResource("RectangleShape2D_wxksq")

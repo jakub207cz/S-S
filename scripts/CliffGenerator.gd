@@ -21,6 +21,7 @@ func _ready() -> void:
     add_child(static_body)
     add_child(poly)
     static_body.add_child(collision)
+    static_body.add_to_group("cliffs")
     
     # Barva hlubinného kamenného útesu
     poly.color = Color(0.12, 0.15, 0.22) 

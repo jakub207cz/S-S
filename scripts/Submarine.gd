@@ -15,6 +15,7 @@ class_name Submarine
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var sprite: AnimatedSprite2D = $Sprite2D
 var inventory: Inventory
+var cliff_damage_timer: float = 0.0
 
 var floating_ui_scene: PackedScene = preload("res://scenes/ui/FloatingInventoryUI.tscn")
 var floating_ui_instance: Control
@@ -70,6 +71,37 @@ func _physics_process(delta: float) -> void:
 		sprite.play("default")
 
 	move_and_slide()
+	
+	# 4. Detekce poškození od útesů
+	var is_touching_cliff = false
+	
+	# Kontrola přes slide_collisions (při pohybu)
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		var collider = collision.get_collider()
+		if collider.is_in_group("cliffs"):
+			is_touching_cliff = true
+			break
+			
+	# Pojistka: test_move pro případ, že stojíme u zdi bez pohybu
+	if not is_touching_cliff:
+		# Zkusíme se "pohnout" o 2 pixely do stran
+		for dir in [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]:
+			if test_move(global_transform, dir * 2.0):
+				var col = move_and_collide(dir * 2.0, true)
+				if col and col.get_collider().is_in_group("cliffs"):
+					is_touching_cliff = true
+					break
+			
+	if is_touching_cliff:
+		cliff_damage_timer += delta
+		if cliff_damage_timer >= 1.0:
+			if health_component:
+				health_component.take_damage(5)
+				print(">>> KONTAKT S ÚTESEM! HP: ", health_component.current_hp, " / ", health_component.max_hp)
+			cliff_damage_timer = 0.0
+	else:
+		cliff_damage_timer = max(0.0, cliff_damage_timer - delta * 2.0)
 
 # Vypořádání se se smrtí - řekneme Autoload managerovi a ten ať už ukončí ponor jak potřebuje
 func _on_death() -> void:

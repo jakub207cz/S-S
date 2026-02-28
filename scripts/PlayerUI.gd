@@ -20,6 +20,16 @@ func _ready() -> void:
     # Prvotní zobrazení
     _on_depth_changed(GameManager.current_depth)
     _on_inventory_changed(0, 10) # Výchozí
+    
+    # Napojení na hráče pro HP
+    call_deferred("_connect_to_player")
+
+func _connect_to_player() -> void:
+    var players = get_tree().get_nodes_in_group("player")
+    if players.size() > 0:
+        var player = players[0]
+        if player.health_component:
+            setup_health_connection(player.health_component)
 
 func setup_health_connection(health_comp: HealthComponent) -> void:
     player_health = health_comp

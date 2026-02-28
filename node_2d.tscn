@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://d35jw5gntvt6o"]
 
 [ext_resource type="PackedScene" uid="uid://bevfu6s8faeyw" path="res://submarine.tscn" id="1_epypp"]
+[ext_resource type="PackedScene" uid="uid://c2d60jpfkvfe5" path="res://boat.tscn" id="1_hqns4"]
 [ext_resource type="Script" uid="uid://dltbtbdqc0y5u" path="res://scripts/PlayerUI.gd" id="3_zzz"]
 [ext_resource type="FontFile" uid="uid://cxknwea7xsam7" path="res://assets/Peaberry-Base.otf" id="4_0hol4"]
 [ext_resource type="Script" uid="uid://b12xr4s5tjflq" path="res://pause_panel.gd" id="4_d21ai"]
 [ext_resource type="Script" uid="uid://c6gghshxq5p0m" path="res://scripts/CliffGenerator.gd" id="5_cliff"]
 [ext_resource type="Script" uid="uid://wkjp1ejase13" path="res://scripts/options_buttons.gd" id="6_rj586"]
 [ext_resource type="Script" uid="uid://clc3t1bslvo6h" path="res://scripts/audio_manager.gd" id="7_4d7sh"]
-[ext_resource type="PackedScene" uid="uid://bfi7xr7lncpqn" path="res://wave.tscn" id="10_ir8iy"]
+[ext_resource type="PackedScene" uid="uid://bfi7xr7lncpqn" path="res://scenes/wave.tscn" id="10_ir8iy"]
 [ext_resource type="Texture2D" uid="uid://bkfyhxwualuhg" path="res://assets/mrak.png" id="12_x0ka3"]
 [ext_resource type="PackedScene" uid="uid://b8wpx0d677ir3" path="res://scenes/SpeedBoostSubmarine.tscn" id="13_trader"]
 
@@ -134,8 +135,11 @@ bg_color = Color(0.38372943, 0.80103385, 0.99999994, 1)
 
 [node name="World" type="Node2D" unique_id=908213786]
 
+[node name="Boat" parent="." unique_id=1731922496 instance=ExtResource("1_hqns4")]
+position = Vector2(214, 282)
+
 [node name="Submarine" parent="." unique_id=1278720274 instance=ExtResource("1_epypp")]
-position = Vector2(469, 225)
+position = Vector2(793, 225)
 
 [node name="Camera2D2" type="Camera2D" parent="Submarine" unique_id=981787369]
 position = Vector2(51, -6)
@@ -382,39 +386,6 @@ theme_override_font_sizes/font_size = 20
 button_pressed = true
 text = "TOGGLE ON FULLSCREEN"
 
-[node name="VSync" type="CheckBox" parent="PlayerUI/Pause/PausePanel/Options/OptionsButtons" unique_id=546157195]
-texture_filter = 1
-layout_mode = 2
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("4_0hol4")
-theme_override_font_sizes/font_size = 20
-button_pressed = true
-text = "V-SYNC"
-
-[node name="ResolutionLabel" type="Label" parent="PlayerUI/Pause/PausePanel/Options/OptionsButtons" unique_id=28589496]
-texture_filter = 1
-layout_mode = 2
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("4_0hol4")
-theme_override_font_sizes/font_size = 20
-text = "RESOLUTION"
-
-[node name="ResolutionOption" type="OptionButton" parent="PlayerUI/Pause/PausePanel/Options/OptionsButtons" unique_id=1860593567]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("4_0hol4")
-theme_override_font_sizes/font_size = 20
-item_count = 5
-popup/item_0/text = "2560x1440"
-popup/item_0/id = 0
-popup/item_1/text = "1920x1080"
-popup/item_1/id = 1
-popup/item_2/text = "1366x768"
-popup/item_2/id = 2
-popup/item_3/text = "1280x720"
-popup/item_3/id = 3
-popup/item_4/text = "1024x768"
-popup/item_4/id = 4
-
 [node name="Back" type="Button" parent="PlayerUI/Pause/PausePanel/Options" unique_id=250047010]
 texture_filter = 1
 layout_mode = 1
@@ -467,6 +438,7 @@ script = ExtResource("5_cliff")
 is_right_side = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=402614364]
+position = Vector2(324, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1234456011]
 position = Vector2(569, 271)
@@ -696,7 +668,7 @@ scale = Vector2(0.373366, 0.40865386)
 texture = ExtResource("12_x0ka3")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Background/Sky/Cloud" unique_id=1751989479]
-position = Vector2(325.75, 174)
+position = Vector2(322.99997, 123)
 scale = Vector2(0.47630718, 0.53846157)
 texture = ExtResource("12_x0ka3")
 
@@ -744,6 +716,4 @@ texture = ExtResource("12_x0ka3")
 [connection signal="pressed" from="PlayerUI/Pause/PausePanel/PauseButtons/Options" to="PlayerUI/Pause/PausePanel" method="_on_options_pressed"]
 [connection signal="pressed" from="PlayerUI/Pause/PausePanel/PauseButtons/Menu" to="PlayerUI/Pause/PausePanel" method="_on_menu_pressed"]
 [connection signal="toggled" from="PlayerUI/Pause/PausePanel/Options/OptionsButtons/Fullscreen" to="PlayerUI/Pause/PausePanel/Options/OptionsButtons" method="_on_fullscreen_toggled"]
-[connection signal="toggled" from="PlayerUI/Pause/PausePanel/Options/OptionsButtons/VSync" to="PlayerUI/Pause/PausePanel/Options/OptionsButtons" method="_on_v_sync_toggled"]
-[connection signal="item_selected" from="PlayerUI/Pause/PausePanel/Options/OptionsButtons/ResolutionOption" to="PlayerUI/Pause/PausePanel/Options/OptionsButtons" method="_on_resolution_option_item_selected"]
 [connection signal="pressed" from="PlayerUI/Pause/PausePanel/Options/Back" to="PlayerUI/Pause/PausePanel" method="_on_back_pressed"]

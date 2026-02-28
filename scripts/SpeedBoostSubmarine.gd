@@ -1,4 +1,4 @@
-extends Area2D
+extends StaticBody2D
 class_name TraderSubmarine
 
 var required_items: Dictionary = {}
@@ -36,7 +36,7 @@ func _ready() -> void:
 
 func _update_visuals() -> void:
 	# Vždy vrtulkou k levé stěně (čelem doprava)
-	sprite.flip_h = true
+	sprite.flip_h = false
 	
 	if trades_completed == 0:
 		sprite.play("wrecked_static")
@@ -46,8 +46,8 @@ func _update_visuals() -> void:
 		sprite.play("wrecked_moving")
 		sprite.modulate = Color(0.56, 0.77, 0.9, 1)
 	elif trades_completed >= 2:
-		# Druhý trade: opravená, vypadá jako hráčova
-		sprite.play("repaired_moving")
+		# Druhý trade: opravená, používá submarine_4
+		sprite.play("repaired_final")
 		sprite.modulate = Color.WHITE
 
 func _reset_trade() -> void:
