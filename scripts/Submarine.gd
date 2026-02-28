@@ -14,8 +14,14 @@ class_name Submarine
 # V _ready ho napojíme na funkci on_death
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var sprite: AnimatedSprite2D = $Sprite2D
+var inventory: Inventory
 
 func _ready() -> void:
+	inventory = Inventory.new()
+	add_child(inventory)
+	# Přeposlání signálu do globálního GameManageru
+	inventory.inventory_changed.connect(func(c, m): GameManager.inventory_capacity_changed.emit(c, m))
+	
 	if health_component:
 		# Takhle se připojuje signál z kódu od verze Godot 4.0
 		health_component.died.connect(_on_death)

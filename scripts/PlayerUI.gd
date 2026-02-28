@@ -15,11 +15,11 @@ var player_health: HealthComponent
 func _ready() -> void:
     # Reagujeme na signály z roota hry
     GameManager.depth_changed.connect(_on_depth_changed)
-    GameManager.materials_changed.connect(_on_materials_changed)
+    GameManager.inventory_capacity_changed.connect(_on_inventory_changed)
     
     # Prvotní zobrazení
     _on_depth_changed(GameManager.current_depth)
-    _on_materials_changed(GameManager.collected_materials)
+    _on_inventory_changed(0, 10) # Výchozí
 
 func setup_health_connection(health_comp: HealthComponent) -> void:
     player_health = health_comp
@@ -33,9 +33,9 @@ func _on_depth_changed(new_depth: float) -> void:
     if depth_label:
         depth_label.text = "Hloubka: %dm" % int(new_depth)
 
-func _on_materials_changed(new_amount: int) -> void:
+func _on_inventory_changed(current: int, max_cap: int) -> void:
     if materials_label:
-        materials_label.text = "Loot: %d" % new_amount
+        materials_label.text = "Inventář: %d/%d" % [current, max_cap]
         
 func _on_hp_changed(current_hp: int, max_hp: int) -> void:
     if hp_label:

@@ -9,6 +9,9 @@ class_name CliffGenerator
 @export var segment_length: float = 180.0 # Vzdálenost bodů na ose Y. Čím nižší, tím detailnější.
 @export var jaggedness: float = 200.0 # Jak moc čouhají zuby do úrovně hráče
 
+var speed_boost_scene: PackedScene = preload("res://scenes/SpeedBoostSubmarine.tscn")
+var scrap_scene: PackedScene = preload("res://scenes/ScrapItem.tscn")
+
 @onready var static_body = StaticBody2D.new()
 @onready var poly = Polygon2D.new()
 @onready var collision = CollisionPolygon2D.new()
@@ -23,6 +26,10 @@ func _ready() -> void:
     poly.color = Color(0.12, 0.15, 0.22) 
     
     generate_cliff()
+    spawn_scrap()
+    
+    if not is_right_side:
+        spawn_speed_boosts()
 
 func generate_cliff() -> void:
     var points := PackedVector2Array()
@@ -128,3 +135,58 @@ func _draw() -> void:
             # Na pravé straně
             draw_line(Vector2(-start_x, y_pos), Vector2(-start_x - 300, y_pos), color, 4.0)
             draw_string(font, Vector2(-start_x - 150, y_pos - 10), str(m) + "m", HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
+
+func spawn_speed_boosts() -> void:
+    # Metráže, na kterých chceme vygenerovat boosty
+    var boost_depths = {
+        200: 3.0,
+        600: 4.0,
+        1200: 5.0
+    }
+    
+    var pixels_per_meter: float = GameManager.PIXELS_PER_METER
+    
+    for depth in boost_depths:
+        # Vytvoření instance
+        var instance = speed_boost_scene.instantiate()
+        
+        # Nastavení příslušné hodnoty násobitele pro tuhle lodičku
+        instance.multiplier_value = boost_depths[depth]
+        
+        # Výpočet startovní pozice Y (nezapomenout přidat oněch + 300 posun ponorky z _draw ladiče)
+        var y_pos: float = float(depth) * pixels_per_meter + 300.0
+        
+        # Mírný odskok od skály (jaggedness + buffer) do volného prostoru.
+        # Nastaveno na hodnotu jaggedness, takže bude sedět těsně plynule zanořená na hraně maximálního výstupku útesu.
+        var target_position = Vector2(jaggedness, y_pos)
+        
+        instance.position = target_position
+        
+        # Zařazení instancované ponorky jako plnohodnotného potomka sítě
+        add_child(instance)
+
+func spawn_scrap() -> void:
+    var max_y: float = GameManager.MAX_GAME_DEPTH * GameManager.PIXELS_PER_METER
+    var current_y: float = 800.0 # Začneme házet kousek pod ponorkou
+    
+    # Krok mezi potenciálními looty (např. každých 300 pixelů - cca 3 metry)
+    var spawn_step: float = 300.0
+    
+    while current_y < max_y:
+        # 40% šance na spawn bedny v tomto kroku
+        if randf() > 0.6:
+            var instance = scrap_scene.instantiate()
+            
+            # Náhodné posunutí vlevo nebo vpravo v rámci volného dálkového prostoru
+            var random_offset = randf_range(jaggedness + 50, jaggedness + 400.0)
+            
+            var target_position = Vector2.ZERO
+            if not is_right_side:
+                target_position = Vector2(random_offset, current_y)
+            else:
+                target_position = Vector2(-random_offset, current_y)
+                
+            instance.position = target_position
+            add_child(instance)
+            
+        current_y += spawn_step

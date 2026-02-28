@@ -17,6 +17,7 @@ signal depth_changed(new_depth: float)
 signal max_depth_changed(new_max_depth: float)
 signal materials_changed(new_amount: int)
 signal stored_materials_changed(new_amount: int)
+signal inventory_capacity_changed(current: int, max_cap: int)
 
 # -----------------
 # 2. Proměnné a Setters
@@ -80,13 +81,22 @@ func on_player_return() -> void:
 	player_returned.emit()
 	get_tree().change_scene_to_file("res://scenes/Base.tscn")
 
+var current_speed_multiplier: float = 1.5
+
 func get_speed_multiplier() -> float:
 	# Násobitel rychlosti lodi podle hloubky
+	var depth_multiplier: float = 1.5
 	if current_depth >= 1200.0:
-		return 5.0
+		depth_multiplier = 5.0
 	elif current_depth >= 600.0:
-		return 4.0
+		depth_multiplier = 4.0
 	elif current_depth >= 200.0:
-		return 3.0
+		depth_multiplier = 3.0
 	
-	return 1.5
+	return max(depth_multiplier, current_speed_multiplier)
+
+func apply_speed_boost(multiplier: float) -> void:
+	# Aplikuje jednorázově či dlouhodobě speed boost.
+	# Udržíme si ten nejvyšší možný
+	if multiplier > current_speed_multiplier:
+		current_speed_multiplier = multiplier
