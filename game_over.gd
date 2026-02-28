@@ -2,12 +2,13 @@ extends Control
 
 @onready var restart: Button = $GameOverButtons/Restart
 @onready var menu: Button = $GameOverButtons/Menu
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	animated_sprite_2d.play("default")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -24,7 +24,7 @@ func _ready() -> void:
 
 func _generate_requirements() -> void:
 	var fish_data = preload("res://scripts/items/ItemFish.gd").new()
-	fish_data.icon = preload("res://icon.svg")
+	fish_data.icon = preload("res://assets/ryba.png")
 	
 	var random_amount = randi() % 4 + 5 # 5 až 8 kusů
 	required_items[fish_data] = random_amount
@@ -77,6 +77,8 @@ func _attempt_trade() -> void:
 		# Zákaz dalšího klikání
 		if input_event.is_connected(_on_input_event):
 			input_event.disconnect(_on_input_event)
+			
+		GameManager.add_completed_trade()
 		print("Plachetnice dostala ryby - Trade splněn!")
 	else:
 		print("Plachetnice hlásí: Nemáš dost ryb!")

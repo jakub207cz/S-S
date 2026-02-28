@@ -15,7 +15,7 @@ func _ready():
 # Volá se při smrti ponorky
 func on_player_death():
 	collected_materials = 0 # Ztráta věcí z aktuálního ponoru
-	current_depth = 0.0sssssssssss
+	current_depth = 0.0
 	get_tree().change_scene_to_file("res://scenes/Base.tscn")
 
 # Volá se při úspěšném návratu

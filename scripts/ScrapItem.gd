@@ -20,6 +20,6 @@ func _on_body_entered(body: Node) -> void:
     if body is Submarine:
         # Přidáme do inventáře
         if body.inventory.add_item(item_data):
-            GameManager.item_collected.emit(item_data.item_name)
+            GameManager.item_collected.emit(item_data.item_name, GameManager.current_depth)
             # Odeslat drobnou vizuální odezvu (např. animaci, pak se smazat)
             queue_free()

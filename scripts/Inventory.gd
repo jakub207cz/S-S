@@ -3,7 +3,7 @@ class_name Inventory
 
 signal inventory_changed(current_count: int, max_capacity: int)
 
-@export var max_capacity: int = 50
+@export var max_capacity: int = 20
 var items: Dictionary = {} # Budeme uchovávat počty [ItemData: int] místo pole pro lepší UI
 
 func add_item(item: ItemData) -> bool:

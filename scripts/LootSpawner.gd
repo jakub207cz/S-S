@@ -9,16 +9,14 @@ var fish_data = preload("res://scripts/items/ItemFish.gd").new()
 signal schedule_respawn(item_name: String)
 
 func _ready() -> void:
-	iron_data.icon = preload("res://icon.svg")
-	oxygen_data.icon = preload("res://icon.svg")
-	fish_data.icon = preload("res://icon.svg")
-	_spawn_fish(30)
-	_spawn_iron(40)
-	_spawn_oxygen(20)
+	iron_data.icon = preload("res://assets/ocel.png")
+	oxygen_data.icon = preload("res://assets/O2.png")
+	fish_data.icon = preload("res://assets/ryba.png")
+	_spawn_all_items()
 	
 	GameManager.item_collected.connect(_on_item_collected)
 
-func _spawn_item_at_depth(item_data_res: Resource, min_depth_m: float, max_depth_m: float, amount: int = 1) -> void:
+func _spawn_single_item(item_data_res: Resource, depth_m: float) -> void:
 	var root_world = get_tree().current_scene
 	if not root_world:
 		return
@@ -27,49 +25,69 @@ func _spawn_item_at_depth(item_data_res: Resource, min_depth_m: float, max_depth
 	if root_world.has_node("World"):
 		map_node = root_world.get_node("World")
 	
-	for i in range(amount):
-		var random_depth = randf_range(min_depth_m, max_depth_m)
-		var y_pos = GameManager.PIXELS_PER_METER * random_depth + 300.0
+	var y_pos = GameManager.PIXELS_PER_METER * depth_m + 300.0
+	var x_pos = randf_range(300.0, 2100.0) 
+	
+	var instance = scrap_scene.instantiate()
+	instance.position = Vector2(x_pos, y_pos)
+	instance.item_data = item_data_res
+	
+	# Získáme referenci na Sprite2D a nastavíme mu správnou texturu
+	var sprite = instance.get_node_or_null("Sprite2D")
+	if sprite and item_data_res.icon:
+		sprite.texture = item_data_res.icon
+		sprite.modulate = Color.WHITE # Resetujeme starou modrou/šedou/červenou barvu
+		# Vypočítáme scale, aby ikona měla finální velikost 64 pixelů na šířku a výšku
+		var tex_size = sprite.texture.get_size()
+		if tex_size.x > 0 and tex_size.y > 0:
+			# Vezmeme ten větší rozměr (šířka nebo výška) pro zachování poměru stran
+			var max_dim = max(tex_size.x, tex_size.y)
+			var scale_factor = 64.0 / max_dim
+			sprite.scale = Vector2(scale_factor, scale_factor)
+		else:
+			sprite.scale = Vector2(1, 1)
 		
-		var x_pos = randf_range(300.0, 2100.0) 
-		
-		var instance = scrap_scene.instantiate()
-		instance.position = Vector2(x_pos, y_pos)
-		
-		instance.item_data = item_data_res
-		
-		if item_data_res.item_name == "Ryba":
-			instance.modulate = Color(0, 0.5, 1.0)
-		elif item_data_res.item_name == "Železo":
-			instance.modulate = Color(0.6, 0.6, 0.6)
-		elif item_data_res.item_name == "Kyslíková bomba":
-			instance.modulate = Color(1.0, 0.2, 0.2)
+	map_node.add_child(instance)
+
+func _spawn_all_items() -> void:
+	var current_depth_m = 10.0
+	var step_m = 10.0
+	
+	while current_depth_m <= GameManager.MAX_GAME_DEPTH:
+		if current_depth_m <= 400.0:
+			# Mělčina (10m - 400m)
+			if randf() < 0.65: _spawn_single_item(fish_data, current_depth_m)
+			if randf() < 0.08: _spawn_single_item(iron_data, current_depth_m)
+			if randf() < 0.01: _spawn_single_item(oxygen_data, current_depth_m)
+		elif current_depth_m <= 1000.0:
+			# Temnota (400m - 1000m)
+			if randf() < 0.15: _spawn_single_item(fish_data, current_depth_m)
+			if randf() < 0.5: _spawn_single_item(iron_data, current_depth_m)
+			if randf() < 0.04: _spawn_single_item(oxygen_data, current_depth_m)
+		else:
+			# Hlubina (1000m - 1600m)
+			if randf() < 0.05: _spawn_single_item(fish_data, current_depth_m)
+			if randf() < 0.2: _spawn_single_item(iron_data, current_depth_m)
+			if randf() < 0.3: _spawn_single_item(oxygen_data, current_depth_m)
 			
-		map_node.add_child(instance)
+		current_depth_m += step_m
 
-func _spawn_fish(amount: int = 1) -> void:
-	_spawn_item_at_depth(fish_data, 10.0, 400.0, amount)
-
-func _spawn_iron(amount: int = 1) -> void:
-	_spawn_item_at_depth(iron_data, 400.0, 1000.0, amount)
-
-func _spawn_oxygen(amount: int = 1) -> void:
-	_spawn_item_at_depth(oxygen_data, 1000.0, GameManager.MAX_GAME_DEPTH, amount)
-
-func _on_item_collected(item_name: String) -> void:
-	var wait_time = 0.0
-	if item_name == "Ryba": wait_time = 30.0
-	elif item_name == "Železo": wait_time = 45.0
-	elif item_name == "Kyslíková bomba": wait_time = 60.0
-	else: return
+func _on_item_collected(item_name: String, depth_m: float) -> void:
+	if item_name not in ["Fish", "Iron", "Oxygen tank"]:
+		return
+	
+	var wait_time = 20.0
 	
 	var timer = get_tree().create_timer(wait_time, false)
-	timer.timeout.connect(func(): _respawn_specific(item_name))
+	timer.timeout.connect(func(): _respawn_specific(item_name, depth_m))
 
-func _respawn_specific(item_name: String) -> void:
-	if item_name == "Ryba":
-		_spawn_fish(1)
-	elif item_name == "Železo":
-		_spawn_iron(1)
-	elif item_name == "Kyslíková bomba":
-		_spawn_oxygen(1)
+func _respawn_specific(item_name: String, collected_depth_m: float) -> void:
+	# Randomizujeme trochu hloubku, ať se nescházejí přesně v jedné lince (+- 30 metrů)
+	var spawn_depth = clamp(collected_depth_m + randf_range(-30.0, 30.0), 10.0, GameManager.MAX_GAME_DEPTH)
+	
+	if item_name == "Fish":
+		_spawn_single_item(fish_data, spawn_depth)
+	elif item_name == "Iron":
+		_spawn_single_item(iron_data, spawn_depth)
+	elif item_name == "Oxygen tank":
+		_spawn_single_item(oxygen_data, spawn_depth)

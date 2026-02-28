@@ -18,7 +18,8 @@ signal max_depth_changed(new_max_depth: float)
 signal materials_changed(new_amount: int)
 signal stored_materials_changed(new_amount: int)
 signal inventory_capacity_changed(current: int, max_cap: int)
-signal item_collected(item_name: String)
+signal item_collected(item_name: String, depth_m: float)
+signal completed_trades_changed(new_count: int)
 
 # -----------------
 # 2. Proměnné a Setters
@@ -31,6 +32,7 @@ var current_depth: float = 0.0 : set = set_current_depth
 var max_depth_reached: float = 0.0 : set = set_max_depth_reached
 var collected_materials: int = 0 : set = set_collected_materials
 var stored_materials: int = 0 : set = set_stored_materials
+var completed_trades_count: int = 0 : set = set_completed_trades_count
 
 # -----------------
 # Upgrady (Prozatím jednoduše)
@@ -62,6 +64,12 @@ func set_collected_materials(value: int) -> void:
 func set_stored_materials(value: int) -> void:
 	stored_materials = maxi(0, value)
 	stored_materials_changed.emit(stored_materials)
+
+func set_completed_trades_count(value: int) -> void:
+	completed_trades_count = maxi(0, value)
+	completed_trades_changed.emit(completed_trades_count)
+func add_completed_trade() -> void:
+	self.completed_trades_count += 1
 
 # -----------------
 # 4. Veřejné Funkce Stavu

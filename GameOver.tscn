@@ -2,6 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://cxknwea7xsam7" path="res://assets/Peaberry-Base.otf" id="1_40baj"]
 [ext_resource type="Script" uid="uid://bu7ow36jayuw2" path="res://game_over.gd" id="1_a1htc"]
+[ext_resource type="Texture2D" uid="uid://cj3krqs4ed8q8" path="res://assets/havarie.png" id="3_eksk4"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_a1htc"]
 blend_mode = 3
@@ -59,6 +60,70 @@ expand_margin_bottom = 15.0
 shadow_color = Color(0.29, 0.29, 0.29, 0.82)
 shadow_size = 5
 shadow_offset = Vector2(3, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xl4ts"]
+atlas = ExtResource("3_eksk4")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jywu3"]
+atlas = ExtResource("3_eksk4")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3y56u"]
+atlas = ExtResource("3_eksk4")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ua7od"]
+atlas = ExtResource("3_eksk4")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3fonj"]
+atlas = ExtResource("3_eksk4")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_758bs"]
+atlas = ExtResource("3_eksk4")
+region = Rect2(256, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rr04i"]
+atlas = ExtResource("3_eksk4")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_067b4"]
+atlas = ExtResource("3_eksk4")
+region = Rect2(128, 256, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w4h2f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xl4ts")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jywu3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3y56u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ua7od")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3fonj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_758bs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rr04i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_067b4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
 
 [node name="GameOver" type="Control" unique_id=720368096]
 layout_mode = 3
@@ -142,6 +207,11 @@ text = "RETURN TO MENU"
 icon_alignment = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=953606606]
+texture_filter = 1
+position = Vector2(861, 381.00003)
+scale = Vector2(3.8125002, 3.351563)
+sprite_frames = SubResource("SpriteFrames_w4h2f")
+frame_progress = 0.93247694
 
 [connection signal="pressed" from="GameOverButtons/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="GameOverButtons/Menu" to="." method="_on_menu_pressed"]

@@ -29,7 +29,7 @@ func _ready() -> void:
 	
 	# Začátek časovače pro automatickou obnovu tradů: 2 minuty PO splnění
 	reset_timer = Timer.new()
-	reset_timer.wait_time = 120.0
+	reset_timer.wait_time = 30.0
 	reset_timer.autostart = false
 	reset_timer.one_shot = true
 	reset_timer.timeout.connect(_reset_trade)
@@ -72,26 +72,42 @@ func _generate_requirements() -> void:
 	var oxygen_data = preload("res://scripts/items/ItemOxygen.gd").new()
 	var fish_data = preload("res://scripts/items/ItemFish.gd").new()
 	
-	iron_data.icon = preload("res://icon.svg")
-	oxygen_data.icon = preload("res://icon.svg")
-	fish_data.icon = preload("res://icon.svg")
+	iron_data.icon = preload("res://assets/ocel.png")
+	oxygen_data.icon = preload("res://assets/O2.png")
+	fish_data.icon = preload("res://assets/ryba.png")
 	
-	var possible_items = [iron_data, fish_data, oxygen_data]
-	
-	var num_requirements = randi() % 3 + 1 # 1 až 3 druhy surovin
-	
-	for i in range(num_requirements):
-		# Vybereme náhodný druh
-		var random_item = possible_items[randi() % possible_items.size()]
-		var random_amount = randi() % 5 + 1 # Náhodné množství od 1 do 5
-		
-		# Pokud bychom zvolili stejný item jako v předchozí iteraci, 
-		# jednoduše se množství jen sečte díky klíčům
-		if required_items.has(random_item):
-			required_items[random_item] += random_amount
-		else:
-			required_items[random_item] = random_amount
+	# Zjistíme hloubku ponorky
+	var depth_m = max(0.0, (global_position.y - 300.0) / GameManager.PIXELS_PER_METER)
+	# Rozdělení logiky do přehledných funkcí podle zón, kde si můžeš sám definovat požadavky
+	if depth_m <= 400.0:
+		_setup_shallow_zone(fish_data, iron_data, oxygen_data)
+	elif depth_m <= 1000.0:
+		_setup_dark_zone(fish_data, iron_data, oxygen_data)
+	else:
+		_setup_deep_zone(fish_data, iron_data, oxygen_data)
 
+# === ZDE MŮŽEŠ LIBOVOLNĚ UPRAVOVAT POŽADAVKY PRO JEDNOTLIVÉ ZÓNY ===
+
+func _setup_shallow_zone(fish, iron, oxygen) -> void:
+	# Mělčina: 7-11 ryb, 0-3 železa
+	required_items[fish] = randi() % 5 + 7
+	var iron_amt = randi() % 4
+	if iron_amt > 0:
+		required_items[iron] = iron_amt
+
+func _setup_dark_zone(fish, iron, oxygen) -> void:
+	# Temnota: 2-5 ryb, 6-9 železa, 2-5 kyslíky
+	required_items[fish] = randi() % 4 + 2
+	required_items[iron] = randi() % 4 + 6
+	required_items[oxygen] = randi() % 4 + 2
+
+func _setup_deep_zone(fish, iron, oxygen) -> void:
+	# Hlubina: 0-2 ryby, 4-6 železa, 6-10 kyslíku
+	var fish_amt = randi() % 3
+	if fish_amt > 0:
+		required_items[fish] = fish_amt
+	required_items[iron] = randi() % 3 + 4
+	required_items[oxygen] = randi() % 5 + 6
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		_attempt_trade()
@@ -154,6 +170,7 @@ func _attempt_trade() -> void:
 			floating_ui_instance.visible = false
 			if done_label:
 				done_label.visible = true
+			GameManager.add_completed_trade()
 			print("Ponorka byla plně opravena a už nic nepotřebuje.")
 	else:
 		print("Nemáš dostatek surovin na trade!")
