@@ -24,9 +24,7 @@ func _ready() -> void:
     # Barva hlubinného kamenného útesu
     poly.color = Color(0.12, 0.15, 0.22) 
     
-    # Zajistíme, že skaliska i malované hloubky budou za hráčem (který má z_index 0)
-    z_index = -1
-    
+
     generate_cliff()
     # spawn_scrap()  # NAHRAZENO PŘES LOOT SPAWNER
     
