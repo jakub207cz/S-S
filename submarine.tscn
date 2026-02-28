@@ -106,8 +106,7 @@ texture_filter = 1
 position = Vector2(102.00001, 91)
 scale = Vector2(1.9492188, 1.9296876)
 sprite_frames = SubResource("SpriteFrames_o4pi2")
-animation = &"movement"
-frame_progress = 0.83827287
+frame_progress = 0.43283862
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1340881943]
 position = Vector2(102, 103.00001)

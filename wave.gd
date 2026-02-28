@@ -1,17 +1,14 @@
-extends Sprite2D
+extends Node2D
 
+@onready var wave_normal: AnimatedSprite2D = $WaveNormal
+@onready var wave_reverse: AnimatedSprite2D = $WaveReverse
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	wave_normal.play("default")
+	wave_reverse.play("default")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if (body.name == "Submarine"):
-		print("collision")

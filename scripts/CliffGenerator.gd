@@ -25,6 +25,9 @@ func _ready() -> void:
     # Barva hlubinného kamenného útesu
     poly.color = Color(0.12, 0.15, 0.22) 
     
+    # Zajistíme, že skaliska i malované hloubky budou za hráčem (který má z_index 0)
+    z_index = -1
+    
     generate_cliff()
     spawn_scrap()
     
@@ -117,11 +120,6 @@ func _draw() -> void:
         # Ponorka startuje s Y v 300 pixelech a bere to za 0m. 
         # Takže k vypočteným pixelům vždy připočítáme 300.0 (viz starting_position lodi)
         var y_pos: float = float(m) * pixels_per_meter + 300.0
-        
-        # Aby čára začínala přesně na kraji skály, musíme vygenerovat stejný noise v y_pos
-        var noise = FastNoiseLite.new()
-        noise.seed = randi() # VAROVÁNÍ: randi() v _draw nedá stejný seed jako v _ready(). Pro zjednodušení dáme čáru jen paušálně. 
-        # Aby to bylo dokonalé, vytažení "šumu" jako proměnou je lepší, viz oprava níže:
         
         # Místo složitého napojování Noise to prostě nakreslíme fixně do prostoru (hráč si to domyslí jako "bojky" atp.)
         # případně do okraje. Skála nikdy nevyčuhuje dál než `jaggedness`. 

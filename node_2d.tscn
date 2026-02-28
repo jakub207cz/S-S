@@ -9,9 +9,9 @@
 [ext_resource type="Script" uid="uid://clc3t1bslvo6h" path="res://scripts/audio_manager.gd" id="7_4d7sh"]
 [ext_resource type="Texture2D" uid="uid://b60m5lt64urck" path="res://assets/icon.svg" id="8_4d7sh"]
 [ext_resource type="Script" uid="uid://povdyu0vd3ro" path="res://test.gd" id="9_ir8iy"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_epypp"]
-normal = Vector2(0, 1)
+[ext_resource type="PackedScene" uid="uid://bfi7xr7lncpqn" path="res://wave.tscn" id="10_ir8iy"]
+[ext_resource type="Texture2D" uid="uid://8hupjftfa75e" path="res://assets/vlna.png" id="11_hqns4"]
+[ext_resource type="Texture2D" uid="uid://b3rr27b81xtn7" path="res://assets/submarine_rez.png" id="12_sub3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q6r6c"]
 bg_color = Color(0, 0, 0, 0.3254902)
@@ -121,13 +121,88 @@ shadow_color = Color(0.29, 0.29, 0.29, 0.82)
 shadow_size = 5
 shadow_offset = Vector2(3, 4)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_c2y6f_sub"]
+atlas = ExtResource("12_sub3")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8e5i_sub"]
+atlas = ExtResource("12_sub3")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vve82_sub"]
+atlas = ExtResource("12_sub3")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bejh6_sub"]
+atlas = ExtResource("12_sub3")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lct8s_sub"]
+atlas = ExtResource("12_sub3")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ee1q_sub"]
+atlas = ExtResource("12_sub3")
+region = Rect2(128, 256, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sub_icon"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c2y6f_sub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8e5i_sub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vve82_sub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bejh6_sub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lct8s_sub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ee1q_sub")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_epypp"]
+normal = Vector2(0, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqns4"]
 size = Vector2(128, 127)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipkwd"]
+atlas = ExtResource("11_hqns4")
+region = Rect2(0, 153, 612, 153)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xy2cj"]
+atlas = ExtResource("11_hqns4")
+region = Rect2(0, 0, 612, 153)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x0ka3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ipkwd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xy2cj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
 
 [node name="World" type="Node2D" unique_id=908213786]
 
 [node name="Submarine" parent="." unique_id=1278720274 instance=ExtResource("1_epypp")]
-position = Vector2(500, 300)
+position = Vector2(469, 188)
 
 [node name="Camera2D2" type="Camera2D" parent="Submarine" unique_id=981787369]
 position = Vector2(51, -6)
@@ -136,6 +211,7 @@ limit_left = 0
 limit_top = -100
 limit_right = 2500
 position_smoothing_enabled = true
+position_smoothing_speed = 8.0
 
 [node name="PlayerUI" type="CanvasLayer" parent="." unique_id=1702368993 node_paths=PackedStringArray("depth_label", "materials_label", "hp_label")]
 script = ExtResource("3_zzz")
@@ -172,25 +248,10 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Loot: 0"
 
-[node name="LeftCliff" type="Node2D" parent="." unique_id=944756991]
-position = Vector2(52, 3)
-script = ExtResource("5_cliff")
-
-[node name="RightCliff" type="Node2D" parent="." unique_id=1862698052]
-position = Vector2(2431, 0)
-script = ExtResource("5_cliff")
-is_right_side = true
-
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=402614364]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1234456011]
-position = Vector2(569, 234)
-shape = SubResource("WorldBoundaryShape2D_epypp")
-
-[node name="Pause" type="CanvasLayer" parent="." unique_id=1894569411]
+[node name="Pause" type="CanvasLayer" parent="PlayerUI" unique_id=1894569411]
 process_mode = 3
 
-[node name="PausePanel" type="Panel" parent="Pause" unique_id=743212479]
+[node name="PausePanel" type="Panel" parent="PlayerUI/Pause" unique_id=743212479]
 unique_name_in_owner = true
 visible = false
 anchors_preset = 15
@@ -201,7 +262,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_q6r6c")
 script = ExtResource("4_d21ai")
 
-[node name="GamePaused" type="Label" parent="Pause/PausePanel" unique_id=276463401]
+[node name="GamePaused" type="Label" parent="PlayerUI/Pause/PausePanel" unique_id=276463401]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 5
@@ -217,7 +278,7 @@ theme_override_fonts/font = ExtResource("4_0hol4")
 theme_override_font_sizes/font_size = 60
 text = "GAME PAUSED"
 
-[node name="PauseButtons" type="VBoxContainer" parent="Pause/PausePanel" unique_id=1743843268]
+[node name="PauseButtons" type="VBoxContainer" parent="PlayerUI/Pause/PausePanel" unique_id=1743843268]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -234,7 +295,7 @@ grow_vertical = 2
 theme_override_constants/separation = 45
 alignment = 1
 
-[node name="Continue" type="Button" parent="Pause/PausePanel/PauseButtons" unique_id=1122513645]
+[node name="Continue" type="Button" parent="PlayerUI/Pause/PausePanel/PauseButtons" unique_id=1122513645]
 texture_filter = 1
 layout_mode = 2
 theme_override_colors/font_pressed_color = Color(0.8, 0.95, 1, 1)
@@ -247,7 +308,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_d21ai")
 text = "CONTINUE"
 icon_alignment = 1
 
-[node name="Options" type="Button" parent="Pause/PausePanel/PauseButtons" unique_id=931996380]
+[node name="Options" type="Button" parent="PlayerUI/Pause/PausePanel/PauseButtons" unique_id=931996380]
 texture_filter = 1
 layout_mode = 2
 theme_override_colors/font_pressed_color = Color(0.8, 0.95, 1, 1)
@@ -260,7 +321,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_d21ai")
 text = "OPTIONS"
 icon_alignment = 1
 
-[node name="Menu" type="Button" parent="Pause/PausePanel/PauseButtons" unique_id=285054929]
+[node name="Menu" type="Button" parent="PlayerUI/Pause/PausePanel/PauseButtons" unique_id=285054929]
 texture_filter = 1
 layout_mode = 2
 theme_override_colors/font_pressed_color = Color(0.8, 0.95, 1, 1)
@@ -273,7 +334,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_d21ai")
 text = "EXIT TO MENU"
 icon_alignment = 1
 
-[node name="Close" type="Button" parent="Pause/PausePanel/PauseButtons" unique_id=446336185]
+[node name="Close" type="Button" parent="PlayerUI/Pause/PausePanel/PauseButtons" unique_id=446336185]
 texture_filter = 1
 layout_mode = 2
 theme_override_colors/font_pressed_color = Color(0.8, 0.95, 1, 1)
@@ -286,7 +347,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_d21ai")
 text = "EXIT TO DESKTOP"
 icon_alignment = 1
 
-[node name="Options" type="Panel" parent="Pause/PausePanel" unique_id=1277302276]
+[node name="Options" type="Panel" parent="PlayerUI/Pause/PausePanel" unique_id=1277302276]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -303,7 +364,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ir8iy")
 
-[node name="Label" type="Label" parent="Pause/PausePanel/Options" unique_id=1288163167]
+[node name="Label" type="Label" parent="PlayerUI/Pause/PausePanel/Options" unique_id=1288163167]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 5
@@ -321,7 +382,7 @@ text = "OPTIONS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="OptionsButtons" type="VBoxContainer" parent="Pause/PausePanel/Options" unique_id=1133040746]
+[node name="OptionsButtons" type="VBoxContainer" parent="PlayerUI/Pause/PausePanel/Options" unique_id=1133040746]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -336,7 +397,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_rj586")
 
-[node name="MasterVolume" type="Label" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=1323542924]
+[node name="MasterVolume" type="Label" parent="PlayerUI/Pause/PausePanel/Options/OptionsButtons" unique_id=1323542924]
 texture_filter = 1
 layout_mode = 2
 theme_override_constants/outline_size = 4
@@ -344,7 +405,7 @@ theme_override_fonts/font = ExtResource("4_0hol4")
 theme_override_font_sizes/font_size = 20
 text = "MASTER VOLUME"
 
-[node name="MasterSlider" type="HSlider" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=1904591208]
+[node name="MasterSlider" type="HSlider" parent="PlayerUI/Pause/PausePanel/Options/OptionsButtons" unique_id=1904591208]
 layout_mode = 2
 max_value = 1.0
 step = 0.001
@@ -352,7 +413,7 @@ value = 1.0
 script = ExtResource("7_4d7sh")
 audio_bus_name = "Master"
 
-[node name="SFXVolume" type="Label" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=1014394472]
+[node name="SFXVolume" type="Label" parent="PlayerUI/Pause/PausePanel/Options/OptionsButtons" unique_id=1014394472]
 texture_filter = 1
 layout_mode = 2
 theme_override_constants/outline_size = 4
@@ -360,7 +421,7 @@ theme_override_fonts/font = ExtResource("4_0hol4")
 theme_override_font_sizes/font_size = 20
 text = "SFX VOLUME"
 
-[node name="SFXSlider" type="HSlider" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=338624847]
+[node name="SFXSlider" type="HSlider" parent="PlayerUI/Pause/PausePanel/Options/OptionsButtons" unique_id=338624847]
 layout_mode = 2
 max_value = 1.0
 step = 0.001
@@ -368,7 +429,7 @@ value = 0.5
 script = ExtResource("7_4d7sh")
 audio_bus_name = "SFX"
 
-[node name="MusicVolume" type="Label" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=414762222]
+[node name="MusicVolume" type="Label" parent="PlayerUI/Pause/PausePanel/Options/OptionsButtons" unique_id=414762222]
 texture_filter = 1
 layout_mode = 2
 theme_override_constants/outline_size = 4
@@ -376,7 +437,7 @@ theme_override_fonts/font = ExtResource("4_0hol4")
 theme_override_font_sizes/font_size = 20
 text = "MUSIC VOLUME"
 
-[node name="MusicSlider" type="HSlider" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=719936389]
+[node name="MusicSlider" type="HSlider" parent="PlayerUI/Pause/PausePanel/Options/OptionsButtons" unique_id=719936389]
 layout_mode = 2
 max_value = 1.0
 step = 0.001
@@ -384,7 +445,7 @@ value = 0.5
 script = ExtResource("7_4d7sh")
 audio_bus_name = "Music"
 
-[node name="Fullscreen" type="CheckBox" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=31387790]
+[node name="Fullscreen" type="CheckBox" parent="PlayerUI/Pause/PausePanel/Options/OptionsButtons" unique_id=31387790]
 texture_filter = 1
 layout_mode = 2
 theme_override_constants/outline_size = 4
@@ -393,7 +454,7 @@ theme_override_font_sizes/font_size = 20
 button_pressed = true
 text = "TOGGLE ON FULLSCREEN"
 
-[node name="VSync" type="CheckBox" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=546157195]
+[node name="VSync" type="CheckBox" parent="PlayerUI/Pause/PausePanel/Options/OptionsButtons" unique_id=546157195]
 texture_filter = 1
 layout_mode = 2
 theme_override_constants/outline_size = 4
@@ -402,7 +463,7 @@ theme_override_font_sizes/font_size = 20
 button_pressed = true
 text = "V-SYNC"
 
-[node name="ResolutionLabel" type="Label" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=28589496]
+[node name="ResolutionLabel" type="Label" parent="PlayerUI/Pause/PausePanel/Options/OptionsButtons" unique_id=28589496]
 texture_filter = 1
 layout_mode = 2
 theme_override_constants/outline_size = 4
@@ -410,12 +471,12 @@ theme_override_fonts/font = ExtResource("4_0hol4")
 theme_override_font_sizes/font_size = 20
 text = "RESOLUTION"
 
-[node name="ResolutionOption" type="OptionButton" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=1860593567]
+[node name="ResolutionOption" type="OptionButton" parent="PlayerUI/Pause/PausePanel/Options/OptionsButtons" unique_id=1860593567]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_0hol4")
 theme_override_font_sizes/font_size = 20
 
-[node name="Back" type="Button" parent="Pause/PausePanel/Options" unique_id=250047010]
+[node name="Back" type="Button" parent="PlayerUI/Pause/PausePanel/Options" unique_id=250047010]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 7
@@ -439,23 +500,165 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_0h7mo")
 text = "BACK"
 icon_alignment = 1
 
+[node name="LeftCliff" type="Node2D" parent="." unique_id=944756991]
+position = Vector2(52, 3)
+script = ExtResource("5_cliff")
+
+[node name="DepthIcon100" type="AnimatedSprite2D" parent="LeftCliff" unique_id=4000100]
+texture_filter = 1
+position = Vector2(420, 10300)
+scale = Vector2(1.9492188, 1.9296876)
+sprite_frames = SubResource("SpriteFrames_sub_icon")
+autoplay = "default"
+
+[node name="DepthIcon200" type="AnimatedSprite2D" parent="LeftCliff" unique_id=4000200]
+texture_filter = 1
+position = Vector2(420, 20300)
+scale = Vector2(1.9492188, 1.9296876)
+sprite_frames = SubResource("SpriteFrames_sub_icon")
+autoplay = "default"
+
+[node name="DepthIcon400" type="AnimatedSprite2D" parent="LeftCliff" unique_id=4000400]
+texture_filter = 1
+position = Vector2(420, 40300)
+scale = Vector2(1.9492188, 1.9296876)
+sprite_frames = SubResource("SpriteFrames_sub_icon")
+autoplay = "default"
+
+[node name="DepthIcon600" type="AnimatedSprite2D" parent="LeftCliff" unique_id=4000600]
+texture_filter = 1
+position = Vector2(420, 60300)
+scale = Vector2(1.9492188, 1.9296876)
+sprite_frames = SubResource("SpriteFrames_sub_icon")
+autoplay = "default"
+
+[node name="DepthIcon900" type="AnimatedSprite2D" parent="LeftCliff" unique_id=4000900]
+texture_filter = 1
+position = Vector2(420, 90300)
+scale = Vector2(1.9492188, 1.9296876)
+sprite_frames = SubResource("SpriteFrames_sub_icon")
+autoplay = "default"
+
+[node name="DepthIcon1200" type="AnimatedSprite2D" parent="LeftCliff" unique_id=4001200]
+texture_filter = 1
+position = Vector2(420, 120300)
+scale = Vector2(1.9492188, 1.9296876)
+sprite_frames = SubResource("SpriteFrames_sub_icon")
+autoplay = "default"
+
+[node name="RightCliff" type="Node2D" parent="." unique_id=1862698052]
+position = Vector2(2431, 0)
+script = ExtResource("5_cliff")
+is_right_side = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=402614364]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1234456011]
+position = Vector2(569, 234)
+shape = SubResource("WorldBoundaryShape2D_epypp")
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1213926744]
-position = Vector2(264, 357)
+position = Vector2(264, 454)
 texture = ExtResource("8_4d7sh")
 script = ExtResource("9_ir8iy")
 
 [node name="Area2D" type="Area2D" parent="Sprite2D" unique_id=827297164]
+position = Vector2(-1, 48)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D" unique_id=1207626528]
-position = Vector2(0, -0.5)
+position = Vector2(0, -48)
 shape = SubResource("RectangleShape2D_hqns4")
 
-[connection signal="pressed" from="Pause/PausePanel/PauseButtons/Continue" to="Pause/PausePanel" method="_on_continue_pressed"]
-[connection signal="pressed" from="Pause/PausePanel/PauseButtons/Options" to="Pause/PausePanel" method="_on_options_pressed"]
-[connection signal="pressed" from="Pause/PausePanel/PauseButtons/Menu" to="Pause/PausePanel" method="_on_menu_pressed"]
-[connection signal="pressed" from="Pause/PausePanel/PauseButtons/Close" to="Pause/PausePanel" method="_on_close_pressed"]
-[connection signal="toggled" from="Pause/PausePanel/Options/OptionsButtons/Fullscreen" to="Pause/PausePanel/Options/OptionsButtons" method="_on_fullscreen_toggled"]
-[connection signal="toggled" from="Pause/PausePanel/Options/OptionsButtons/VSync" to="Pause/PausePanel/Options/OptionsButtons" method="_on_v_sync_toggled"]
-[connection signal="item_selected" from="Pause/PausePanel/Options/OptionsButtons/ResolutionOption" to="Pause/PausePanel/Options/OptionsButtons" method="_on_resolution_option_item_selected"]
-[connection signal="pressed" from="Pause/PausePanel/Options/Back" to="Pause/PausePanel" method="_on_back_pressed"]
+[node name="Waves" type="Node" parent="." unique_id=1396237348]
+
+[node name="Wave1" parent="Waves" unique_id=631824589 instance=ExtResource("10_ir8iy")]
+position = Vector2(52, 334)
+
+[node name="Wave2" parent="Waves" unique_id=731824589 instance=ExtResource("10_ir8iy")]
+position = Vector2(143, 334)
+
+[node name="Wave3" parent="Waves" unique_id=831824589 instance=ExtResource("10_ir8iy")]
+position = Vector2(233, 334)
+
+[node name="Wave4" parent="Waves" unique_id=931824589 instance=ExtResource("10_ir8iy")]
+position = Vector2(324.00003, 334)
+
+[node name="Wave5" parent="Waves" unique_id=1031824589 instance=ExtResource("10_ir8iy")]
+position = Vector2(415, 333)
+
+[node name="Wave6" parent="Waves" unique_id=1131824589 instance=ExtResource("10_ir8iy")]
+position = Vector2(506, 333)
+
+[node name="Wave7" parent="Waves" unique_id=1231824589 instance=ExtResource("10_ir8iy")]
+position = Vector2(596, 333)
+
+[node name="Wave8" parent="Waves" unique_id=1331824589 instance=ExtResource("10_ir8iy")]
+position = Vector2(687, 333)
+
+[node name="Wave9" parent="Waves" unique_id=1431824589 instance=ExtResource("10_ir8iy")]
+position = Vector2(778.00006, 333)
+
+[node name="Wave10" parent="Waves" unique_id=1531824589 instance=ExtResource("10_ir8iy")]
+position = Vector2(867.00006, 333)
+
+[node name="Wave11" parent="Waves" unique_id=1631824589 instance=ExtResource("10_ir8iy")]
+position = Vector2(958.00006, 333)
+
+[node name="Wave12" parent="Waves" unique_id=1731824589 instance=ExtResource("10_ir8iy")]
+position = Vector2(1048.0001, 333)
+
+[node name="Wave13" parent="Waves" unique_id=1831824589 instance=ExtResource("10_ir8iy")]
+position = Vector2(1139.0001, 333)
+
+[node name="Wave14" parent="Waves" unique_id=1931824589 instance=ExtResource("10_ir8iy")]
+position = Vector2(1229, 333)
+
+[node name="Wave15" parent="Waves" unique_id=2031824589 instance=ExtResource("10_ir8iy")]
+position = Vector2(1320.0001, 333)
+
+[node name="Wave16" parent="Waves" unique_id=2131824589 instance=ExtResource("10_ir8iy")]
+position = Vector2(1411.0001, 332)
+
+[node name="Wave17" parent="Waves" unique_id=-2063142707 instance=ExtResource("10_ir8iy")]
+position = Vector2(1500.0001, 332)
+
+[node name="Wave18" parent="Waves" unique_id=-1963142707 instance=ExtResource("10_ir8iy")]
+position = Vector2(1589.0001, 332)
+
+[node name="Wave19" parent="Waves" unique_id=-1863142707 instance=ExtResource("10_ir8iy")]
+position = Vector2(1680.0001, 333)
+
+[node name="Wave20" parent="Waves" unique_id=-1763142707 instance=ExtResource("10_ir8iy")]
+position = Vector2(1771.0001, 332)
+
+[node name="Wave21" parent="Waves" unique_id=-1663142707 instance=ExtResource("10_ir8iy")]
+position = Vector2(1861.0001, 333)
+
+[node name="Wave22" parent="Waves" unique_id=-1563142707 instance=ExtResource("10_ir8iy")]
+position = Vector2(2310, 333)
+
+[node name="Wave23" parent="Waves" unique_id=1440049479 instance=ExtResource("10_ir8iy")]
+position = Vector2(1951, 333)
+
+[node name="Wave24" parent="Waves" unique_id=751647050 instance=ExtResource("10_ir8iy")]
+position = Vector2(2042, 332)
+
+[node name="Wave25" parent="Waves" unique_id=1230544466 instance=ExtResource("10_ir8iy")]
+position = Vector2(2132, 333)
+
+[node name="Wave26" parent="Waves" unique_id=250540447 instance=ExtResource("10_ir8iy")]
+position = Vector2(2219.0002, 333)
+
+[node name="WaveReverse2" type="AnimatedSprite2D" parent="Waves/Wave26" unique_id=238260060]
+position = Vector2(592.5, -62.499935)
+sprite_frames = SubResource("SpriteFrames_x0ka3")
+
+[connection signal="pressed" from="PlayerUI/Pause/PausePanel/PauseButtons/Continue" to="PlayerUI/Pause/PausePanel" method="_on_continue_pressed"]
+[connection signal="pressed" from="PlayerUI/Pause/PausePanel/PauseButtons/Options" to="PlayerUI/Pause/PausePanel" method="_on_options_pressed"]
+[connection signal="pressed" from="PlayerUI/Pause/PausePanel/PauseButtons/Menu" to="PlayerUI/Pause/PausePanel" method="_on_menu_pressed"]
+[connection signal="pressed" from="PlayerUI/Pause/PausePanel/PauseButtons/Close" to="PlayerUI/Pause/PausePanel" method="_on_close_pressed"]
+[connection signal="toggled" from="PlayerUI/Pause/PausePanel/Options/OptionsButtons/Fullscreen" to="PlayerUI/Pause/PausePanel/Options/OptionsButtons" method="_on_fullscreen_toggled"]
+[connection signal="toggled" from="PlayerUI/Pause/PausePanel/Options/OptionsButtons/VSync" to="PlayerUI/Pause/PausePanel/Options/OptionsButtons" method="_on_v_sync_toggled"]
+[connection signal="item_selected" from="PlayerUI/Pause/PausePanel/Options/OptionsButtons/ResolutionOption" to="PlayerUI/Pause/PausePanel/Options/OptionsButtons" method="_on_resolution_option_item_selected"]
+[connection signal="pressed" from="PlayerUI/Pause/PausePanel/Options/Back" to="PlayerUI/Pause/PausePanel" method="_on_back_pressed"]
 [connection signal="body_entered" from="Sprite2D/Area2D" to="Sprite2D" method="_on_area_2d_body_entered"]
