@@ -10,8 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://b60m5lt64urck" path="res://assets/icon.svg" id="8_4d7sh"]
 [ext_resource type="Script" uid="uid://povdyu0vd3ro" path="res://test.gd" id="9_ir8iy"]
 [ext_resource type="PackedScene" uid="uid://bfi7xr7lncpqn" path="res://wave.tscn" id="10_ir8iy"]
-[ext_resource type="Texture2D" uid="uid://b3rr27b81xtn7" path="res://assets/submarine_rez.png" id="12_sub3"]
-[ext_resource type="PackedScene" uid="uid://cs8a3m3speedb" path="res://scenes/TraderSubmarine.tscn" id="13_trader"]
+[ext_resource type="PackedScene" uid="uid://b8wpx0d677ir3" path="res://scenes/SpeedBoostSubmarine.tscn" id="13_trader"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q6r6c"]
 bg_color = Color(0, 0.27, 0.43, 0.75)
@@ -121,56 +120,6 @@ shadow_color = Color(0.29, 0.29, 0.29, 0.82)
 shadow_size = 5
 shadow_offset = Vector2(3, 4)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_c2y6f_sub"]
-atlas = ExtResource("12_sub3")
-region = Rect2(0, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a8e5i_sub"]
-atlas = ExtResource("12_sub3")
-region = Rect2(128, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vve82_sub"]
-atlas = ExtResource("12_sub3")
-region = Rect2(0, 128, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bejh6_sub"]
-atlas = ExtResource("12_sub3")
-region = Rect2(128, 128, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lct8s_sub"]
-atlas = ExtResource("12_sub3")
-region = Rect2(0, 256, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8ee1q_sub"]
-atlas = ExtResource("12_sub3")
-region = Rect2(128, 256, 128, 128)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_sub_icon"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c2y6f_sub")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_a8e5i_sub")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vve82_sub")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bejh6_sub")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lct8s_sub")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8ee1q_sub")
-}],
-"loop": true,
-"name": &"default",
-"speed": 10.0
-}]
-
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_epypp"]
 normal = Vector2(0, 1)
 
@@ -179,6 +128,9 @@ size = Vector2(128, 127)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nr8wp"]
 bg_color = Color(0.09019608, 0.5529412, 0.77254903, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d2bti"]
+bg_color = Color(0.09320182, 0.5526029, 0.7723388, 0.59000003)
 
 [node name="World" type="Node2D" unique_id=908213786]
 
@@ -201,20 +153,20 @@ materials_label = NodePath("MarginContainer/VBoxContainer/MaterialsLabel")
 hp_label = NodePath("MarginContainer/VBoxContainer/HPLabel")
 
 [node name="MarginContainer" type="MarginContainer" parent="PlayerUI" unique_id=323229580]
-mouse_filter = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PlayerUI/MarginContainer" unique_id=624999049]
-mouse_filter = 2
 layout_mode = 2
+mouse_filter = 2
 
 [node name="HPLabel" type="Label" parent="PlayerUI/MarginContainer/VBoxContainer" unique_id=1395848553]
 layout_mode = 2
@@ -498,22 +450,22 @@ icon_alignment = 1
 position = Vector2(52, 3)
 script = ExtResource("5_cliff")
 
-[node name="Trader100" parent="LeftCliff" instance=ExtResource("13_trader")]
+[node name="Trader100" parent="LeftCliff" unique_id=1523412051 instance=ExtResource("13_trader")]
 position = Vector2(420, 10300)
 
-[node name="Trader200" parent="LeftCliff" instance=ExtResource("13_trader")]
+[node name="Trader200" parent="LeftCliff" unique_id=1749714372 instance=ExtResource("13_trader")]
 position = Vector2(420, 20300)
 
-[node name="Trader400" parent="LeftCliff" instance=ExtResource("13_trader")]
+[node name="Trader400" parent="LeftCliff" unique_id=1778866283 instance=ExtResource("13_trader")]
 position = Vector2(420, 40300)
 
-[node name="Trader600" parent="LeftCliff" instance=ExtResource("13_trader")]
+[node name="Trader600" parent="LeftCliff" unique_id=1810286715 instance=ExtResource("13_trader")]
 position = Vector2(420, 60300)
 
-[node name="Trader900" parent="LeftCliff" instance=ExtResource("13_trader")]
+[node name="Trader900" parent="LeftCliff" unique_id=948287571 instance=ExtResource("13_trader")]
 position = Vector2(420, 90300)
 
-[node name="Trader1200" parent="LeftCliff" instance=ExtResource("13_trader")]
+[node name="Trader1200" parent="LeftCliff" unique_id=723119949 instance=ExtResource("13_trader")]
 position = Vector2(420, 120300)
 
 [node name="RightCliff" type="Node2D" parent="." unique_id=1862698052]
@@ -721,7 +673,7 @@ offset_bottom = 1161.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="Background" unique_id=238806450]
+[node name="WaterTop" type="Panel" parent="Background" unique_id=238806450]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -730,6 +682,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_nr8wp")
+
+[node name="WaterTopUnderwater" type="Panel" parent="Background" unique_id=1483971753]
+z_index = 10
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d2bti")
 
 [connection signal="pressed" from="PlayerUI/Pause/PausePanel/PauseButtons/Continue" to="PlayerUI/Pause/PausePanel" method="_on_continue_pressed"]
 [connection signal="pressed" from="PlayerUI/Pause/PausePanel/PauseButtons/Options" to="PlayerUI/Pause/PausePanel" method="_on_options_pressed"]
