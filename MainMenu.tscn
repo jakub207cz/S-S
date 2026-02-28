@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://qpkhkys0qwbw" path="res://assets/submarine.png" id="6_cqjrg"]
 [ext_resource type="Script" uid="uid://mpo77f0f3rp5" path="res://main_menu_sub.gd" id="6_e2xy7"]
 [ext_resource type="Texture2D" uid="uid://vp3ut4xricc6" path="res://assets/bubliny_2.png" id="7_e2xy7"]
+[ext_resource type="Texture2D" uid="uid://c5ef4owwsskwr" path="res://assets/chobotnice.png" id="9_fimr5"]
+[ext_resource type="Texture2D" uid="uid://c1bs1vf2i0342" path="res://assets/Fugu_2.png" id="10_u7cqb"]
 [ext_resource type="FontFile" uid="uid://cxknwea7xsam7" path="res://assets/Peaberry-Base.otf" id="Font_peaberry"]
 [ext_resource type="Script" uid="uid://drs3ve5g2bj2t" path="res://scripts/main_menu.gd" id="Script_main_menu"]
 
@@ -182,6 +184,106 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3fnrj"]
+atlas = ExtResource("9_fimr5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dl1jy"]
+atlas = ExtResource("9_fimr5")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4010"]
+atlas = ExtResource("9_fimr5")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2gjqv"]
+atlas = ExtResource("9_fimr5")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ig1gi"]
+atlas = ExtResource("9_fimr5")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3wmj"]
+atlas = ExtResource("9_fimr5")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xxvoy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3fnrj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dl1jy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4010")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2gjqv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ig1gi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3wmj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxvoy"]
+atlas = ExtResource("10_u7cqb")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8cnk"]
+atlas = ExtResource("10_u7cqb")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2bvh"]
+atlas = ExtResource("10_u7cqb")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tvmpt"]
+atlas = ExtResource("10_u7cqb")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ckqpr"]
+atlas = ExtResource("10_u7cqb")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tkoa0"]
+atlas = ExtResource("10_u7cqb")
+region = Rect2(128, 256, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d6scf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xxvoy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8cnk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2bvh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tvmpt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ckqpr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tkoa0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
 }]
 
 [node name="MainMenu" type="Control" unique_id=373863426]
@@ -469,7 +571,7 @@ script = ExtResource("6_e2xy7")
 [node name="Sub" type="AnimatedSprite2D" parent="MainMenuSub" unique_id=876139124]
 modulate = Color(0.3, 0.45, 0.65, 1)
 texture_filter = 1
-position = Vector2(1025, 279)
+position = Vector2(1071, 289)
 scale = Vector2(2.1953118, 2.1171875)
 sprite_frames = SubResource("SpriteFrames_3fnrj")
 frame_progress = 0.31930164
@@ -485,6 +587,19 @@ position = Vector2(-25.978643, -49.594097)
 scale = Vector2(0.45596126, 0.78782284)
 sprite_frames = SubResource("SpriteFrames_y4010")
 frame_progress = 0.32337046
+
+[node name="Squid" type="AnimatedSprite2D" parent="MainMenuSub" unique_id=1340327421]
+texture_filter = 1
+position = Vector2(241.00002, 186)
+scale = Vector2(5, 5.46875)
+sprite_frames = SubResource("SpriteFrames_xxvoy")
+frame_progress = 0.11404193
+
+[node name="Pufferfish" type="AnimatedSprite2D" parent="MainMenuSub" unique_id=1585256692]
+position = Vector2(140.5, 497.25003)
+scale = Vector2(1.3203124, 1.3554686)
+sprite_frames = SubResource("SpriteFrames_d6scf")
+frame_progress = 0.2618342
 
 [connection signal="pressed" from="MainMenuButtons/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MainMenuButtons/Options" to="." method="_on_options_pressed"]
