@@ -2,10 +2,122 @@
 
 [ext_resource type="PackedScene" uid="uid://bevfu6s8faeyw" path="res://submarine.tscn" id="1_epypp"]
 [ext_resource type="Script" uid="uid://dltbtbdqc0y5u" path="res://scripts/PlayerUI.gd" id="3_zzz"]
+[ext_resource type="FontFile" uid="uid://cxknwea7xsam7" path="res://assets/Peaberry-Base.otf" id="4_0hol4"]
+[ext_resource type="Script" uid="uid://b12xr4s5tjflq" path="res://pause_panel.gd" id="4_d21ai"]
 [ext_resource type="Script" uid="uid://c6gghshxq5p0m" path="res://scripts/CliffGenerator.gd" id="5_cliff"]
+[ext_resource type="Script" uid="uid://wkjp1ejase13" path="res://scripts/options_buttons.gd" id="6_rj586"]
+[ext_resource type="Script" uid="uid://clc3t1bslvo6h" path="res://scripts/audio_manager.gd" id="7_4d7sh"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_epypp"]
 normal = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q6r6c"]
+bg_color = Color(0, 0, 0, 0.12941177)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0hol4"]
+bg_color = Color(8.085966e-06, 0.66958594, 0.87921125, 0.8039216)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.18359044, 0.18359044, 0.18359044, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_top = 15.0
+expand_margin_bottom = 15.0
+shadow_color = Color(0.29411766, 0.29411766, 0.29411766, 0.81960785)
+shadow_size = 5
+shadow_offset = Vector2(3, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kdubu"]
+bg_color = Color(0, 0.35, 0.55, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.1, 0.1, 0.1, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_top = 15.0
+expand_margin_bottom = 15.0
+shadow_color = Color(0.2, 0.2, 0.2, 0.82)
+shadow_size = 5
+shadow_offset = Vector2(3, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d21ai"]
+bg_color = Color(0.015, 0.75, 0.9, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.18, 0.18, 0.18, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_top = 15.0
+expand_margin_bottom = 15.0
+shadow_color = Color(0.29, 0.29, 0.29, 0.82)
+shadow_size = 5
+shadow_offset = Vector2(3, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ir8iy"]
+bg_color = Color(0.20204967, 0.21808627, 0.19804066, 0.7607843)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqns4"]
+bg_color = Color(8.085966e-06, 0.66958594, 0.87921125, 0.8039216)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.18359044, 0.18359044, 0.18359044, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_top = 15.0
+expand_margin_bottom = 15.0
+shadow_color = Color(0.29411766, 0.29411766, 0.29411766, 0.81960785)
+shadow_size = 5
+shadow_offset = Vector2(3, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x0ka3"]
+bg_color = Color(0, 0.35, 0.55, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.1, 0.1, 0.1, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_top = 15.0
+expand_margin_bottom = 15.0
+shadow_color = Color(0.2, 0.2, 0.2, 0.82)
+shadow_size = 5
+shadow_offset = Vector2(3, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0h7mo"]
+bg_color = Color(0.015, 0.75, 0.9, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.18, 0.18, 0.18, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_top = 15.0
+expand_margin_bottom = 15.0
+shadow_color = Color(0.29, 0.29, 0.29, 0.82)
+shadow_size = 5
+shadow_offset = Vector2(3, 4)
 
 [node name="World" type="Node2D" unique_id=908213786]
 
@@ -69,3 +181,262 @@ is_right_side = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1234456011]
 position = Vector2(569, 234)
 shape = SubResource("WorldBoundaryShape2D_epypp")
+
+[node name="Pause" type="Node" parent="." unique_id=1894569411]
+process_mode = 3
+[node name="PausePanel" type="Panel" parent="Pause" unique_id=743212479]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q6r6c")
+script = ExtResource("4_d21ai")
+
+[node name="Label" type="Label" parent="Pause/PausePanel" unique_id=276463401]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -204.0
+offset_top = 64.0
+offset_right = 202.0
+offset_bottom = 124.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("4_0hol4")
+theme_override_font_sizes/font_size = 60
+text = "GAME PAUSED"
+
+[node name="PauseButtons" type="VBoxContainer" parent="Pause/PausePanel" unique_id=1743843268]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -198.0
+offset_top = -160.0
+offset_right = 199.0
+offset_bottom = 197.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 45
+alignment = 1
+
+[node name="Continue" type="Button" parent="Pause/PausePanel/PauseButtons" unique_id=1122513645]
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.8, 0.95, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_0hol4")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_0hol4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kdubu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_d21ai")
+text = "CONTINUE"
+icon_alignment = 1
+
+[node name="Options" type="Button" parent="Pause/PausePanel/PauseButtons" unique_id=931996380]
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.8, 0.95, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_0hol4")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_0hol4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kdubu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_d21ai")
+text = "OPTIONS"
+icon_alignment = 1
+
+[node name="Menu" type="Button" parent="Pause/PausePanel/PauseButtons" unique_id=285054929]
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.8, 0.95, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_0hol4")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_0hol4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kdubu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_d21ai")
+text = "EXIT TO MENU"
+icon_alignment = 1
+
+[node name="Close" type="Button" parent="Pause/PausePanel/PauseButtons" unique_id=446336185]
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.8, 0.95, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_0hol4")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_0hol4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kdubu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_d21ai")
+text = "EXIT TO DESKTOP"
+icon_alignment = 1
+
+[node name="Options" type="Panel" parent="Pause/PausePanel" unique_id=1277302276]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -286.0
+offset_top = -263.0
+offset_right = 292.0
+offset_bottom = 262.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ir8iy")
+
+[node name="Label" type="Label" parent="Pause/PausePanel/Options" unique_id=1288163167]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -158.0
+offset_top = 39.0
+offset_right = 159.0
+offset_bottom = 104.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("4_0hol4")
+theme_override_font_sizes/font_size = 40
+text = "OPTIONS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionsButtons" type="VBoxContainer" parent="Pause/PausePanel/Options" unique_id=1133040746]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -202.0
+offset_top = -119.5
+offset_right = 201.0
+offset_bottom = 125.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_rj586")
+
+[node name="MasterVolume" type="Label" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=1323542924]
+texture_filter = 1
+layout_mode = 2
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_0hol4")
+theme_override_font_sizes/font_size = 20
+text = "MASTER VOLUME"
+
+[node name="MasterSlider" type="HSlider" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=1904591208]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+value = 1.0
+script = ExtResource("7_4d7sh")
+audio_bus_name = "Master"
+
+[node name="SFXVolume" type="Label" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=1014394472]
+texture_filter = 1
+layout_mode = 2
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_0hol4")
+theme_override_font_sizes/font_size = 20
+text = "SFX VOLUME"
+
+[node name="SFXSlider" type="HSlider" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=338624847]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+value = 0.5
+script = ExtResource("7_4d7sh")
+audio_bus_name = "SFX"
+
+[node name="MusicVolume" type="Label" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=414762222]
+texture_filter = 1
+layout_mode = 2
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_0hol4")
+theme_override_font_sizes/font_size = 20
+text = "MUSIC VOLUME"
+
+[node name="MusicSlider" type="HSlider" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=719936389]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+value = 0.5
+script = ExtResource("7_4d7sh")
+audio_bus_name = "Music"
+
+[node name="Fullscreen" type="CheckBox" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=31387790]
+texture_filter = 1
+layout_mode = 2
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_0hol4")
+theme_override_font_sizes/font_size = 20
+button_pressed = true
+text = "TOGGLE ON FULLSCREEN"
+
+[node name="VSync" type="CheckBox" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=546157195]
+texture_filter = 1
+layout_mode = 2
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_0hol4")
+theme_override_font_sizes/font_size = 20
+button_pressed = true
+text = "V-SYNC"
+
+[node name="ResolutionLabel" type="Label" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=28589496]
+texture_filter = 1
+layout_mode = 2
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_0hol4")
+theme_override_font_sizes/font_size = 20
+text = "RESOLUTION"
+
+[node name="ResolutionOption" type="OptionButton" parent="Pause/PausePanel/Options/OptionsButtons" unique_id=1860593567]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_0hol4")
+theme_override_font_sizes/font_size = 20
+
+[node name="Back" type="Button" parent="Pause/PausePanel/Options" unique_id=250047010]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -84.0
+offset_right = 203.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_pressed_color = Color(0.8, 0.95, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_0hol4")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_hqns4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_x0ka3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0h7mo")
+text = "BACK"
+icon_alignment = 1
+
+[connection signal="pressed" from="Pause/PausePanel/PauseButtons/Continue" to="Pause/PausePanel" method="_on_continue_pressed"]
+[connection signal="pressed" from="Pause/PausePanel/PauseButtons/Options" to="Pause/PausePanel" method="_on_options_pressed"]
+[connection signal="pressed" from="Pause/PausePanel/PauseButtons/Menu" to="Pause/PausePanel" method="_on_menu_pressed"]
+[connection signal="pressed" from="Pause/PausePanel/PauseButtons/Close" to="Pause/PausePanel" method="_on_close_pressed"]
+[connection signal="toggled" from="Pause/PausePanel/Options/OptionsButtons/Fullscreen" to="Pause/PausePanel/Options/OptionsButtons" method="_on_fullscreen_toggled"]
+[connection signal="toggled" from="Pause/PausePanel/Options/OptionsButtons/VSync" to="Pause/PausePanel/Options/OptionsButtons" method="_on_v_sync_toggled"]
+[connection signal="item_selected" from="Pause/PausePanel/Options/OptionsButtons/ResolutionOption" to="Pause/PausePanel/Options/OptionsButtons" method="_on_resolution_option_item_selected"]

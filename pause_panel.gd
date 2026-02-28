@@ -17,13 +17,13 @@ func paused():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var esc_pressed = Input.is_action_just_pressed("pause")
-	if esc_pressed:
-		get_tree().paused = !get_tree().paused
-		pause_panel.visible = !pause_panel.visible
-	if options.visible and esc_pressed:
-		options.visible = !options.visible
-		_ready()
+	if Input.is_action_just_pressed("pause"):
+		if options.visible:
+			_ready()
+		else:
+			var is_paused = !get_tree().paused
+			get_tree().paused = is_paused
+			pause_panel.visible = is_paused
 func _on_continue_pressed() -> void:
 	resume()
 	pause_panel.hide()
