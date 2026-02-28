@@ -35,6 +35,7 @@ func _on_resolution_option_item_selected(index: int) -> void:
 	if parts.size() == 2:
 		var size = Vector2i(parts[0].to_int(), parts[1].to_int())
 		SettingsManager.resolution = size
+		print("Selected resolution: ", size)
 		
 		# Pokud jsme ve windowed módu, rovnou aplikujeme, jinak to bude vidět po vypnutí fullscreenu
 		if not SettingsManager.fullscreen:

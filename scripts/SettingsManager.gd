@@ -50,16 +50,19 @@ func apply_settings() -> void:
 	AudioServer.set_bus_volume_db(music_bus, linear_to_db(music_volume))
 	
 	# Aplikace obrazu
+	var window = get_window()
 	if fullscreen:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+		window.mode = Window.MODE_EXCLUSIVE_FULLSCREEN
 	else:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		DisplayServer.window_set_size(resolution)
+		window.mode = Window.MODE_WINDOWED
+		window.size = resolution
+		
 		# Zarovnání okna na střed
-		var screen_id = DisplayServer.window_get_current_screen()
+		var screen_id = window.current_screen
 		var screen_rect = DisplayServer.screen_get_usable_rect(screen_id)
 		var center_pos = screen_rect.position + (screen_rect.size / 2) - (Vector2i(resolution) / 2)
-		DisplayServer.window_set_position(center_pos)
+		window.position = center_pos
+
 		
 	if vsync:
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
