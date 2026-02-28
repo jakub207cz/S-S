@@ -23,6 +23,7 @@ buses/default_bus_layout="uid://cfdq3v2pecvu5"
 
 GameManager="*res://scripts/GameManager.gd"
 SettingsManager="*res://scripts/SettingsManager.gd"
+LootSpawner="*res://scripts/LootSpawner.gd"
 
 [input]
 

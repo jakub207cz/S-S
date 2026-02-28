@@ -18,6 +18,7 @@ signal max_depth_changed(new_max_depth: float)
 signal materials_changed(new_amount: int)
 signal stored_materials_changed(new_amount: int)
 signal inventory_capacity_changed(current: int, max_cap: int)
+signal item_collected(item_name: String)
 
 # -----------------
 # 2. Proměnné a Setters

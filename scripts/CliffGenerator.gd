@@ -9,7 +9,6 @@ class_name CliffGenerator
 @export var segment_length: float = 180.0 # Vzdálenost bodů na ose Y. Čím nižší, tím detailnější.
 @export var jaggedness: float = 200.0 # Jak moc čouhají zuby do úrovně hráče
 
-var speed_boost_scene: PackedScene = preload("res://scenes/SpeedBoostSubmarine.tscn")
 var scrap_scene: PackedScene = preload("res://scenes/ScrapItem.tscn")
 
 @onready var static_body = StaticBody2D.new()
@@ -29,10 +28,9 @@ func _ready() -> void:
     z_index = -1
     
     generate_cliff()
-    spawn_scrap()
+    # spawn_scrap()  # NAHRAZENO PŘES LOOT SPAWNER
     
-    if not is_right_side:
-        spawn_speed_boosts()
+    pass
 
 func generate_cliff() -> void:
     var points := PackedVector2Array()
@@ -134,34 +132,7 @@ func _draw() -> void:
             draw_line(Vector2(-start_x, y_pos), Vector2(-start_x - 300, y_pos), color, 4.0)
             draw_string(font, Vector2(-start_x - 150, y_pos - 10), str(m) + "m", HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
 
-func spawn_speed_boosts() -> void:
-    # Metráže, na kterých chceme vygenerovat boosty
-    var boost_depths = {
-        200: 3.0,
-        600: 4.0,
-        1200: 5.0
-    }
-    
-    var pixels_per_meter: float = GameManager.PIXELS_PER_METER
-    
-    for depth in boost_depths:
-        # Vytvoření instance
-        var instance = speed_boost_scene.instantiate()
-        
-        # Nastavení příslušné hodnoty násobitele pro tuhle lodičku
-        instance.multiplier_value = boost_depths[depth]
-        
-        # Výpočet startovní pozice Y (nezapomenout přidat oněch + 300 posun ponorky z _draw ladiče)
-        var y_pos: float = float(depth) * pixels_per_meter + 300.0
-        
-        # Mírný odskok od skály (jaggedness + buffer) do volného prostoru.
-        # Nastaveno na hodnotu jaggedness, takže bude sedět těsně plynule zanořená na hraně maximálního výstupku útesu.
-        var target_position = Vector2(jaggedness, y_pos)
-        
-        instance.position = target_position
-        
-        # Zařazení instancované ponorky jako plnohodnotného potomka sítě
-        add_child(instance)
+
 
 func spawn_scrap() -> void:
     var max_y: float = GameManager.MAX_GAME_DEPTH * GameManager.PIXELS_PER_METER

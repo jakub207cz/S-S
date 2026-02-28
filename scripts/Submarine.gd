@@ -16,11 +16,22 @@ class_name Submarine
 @onready var sprite: AnimatedSprite2D = $Sprite2D
 var inventory: Inventory
 
+var floating_ui_scene: PackedScene = preload("res://scenes/ui/FloatingInventoryUI.tscn")
+var floating_ui_instance: Control
+
 func _ready() -> void:
+	add_to_group("player")
+	
 	inventory = Inventory.new()
 	add_child(inventory)
-	# Přeposlání signálu do globálního GameManageru
-	inventory.inventory_changed.connect(func(c, m): GameManager.inventory_capacity_changed.emit(c, m))
+	
+	# Napojení Floating UI ihned na startu
+	floating_ui_instance = floating_ui_scene.instantiate()
+	add_child(floating_ui_instance)
+	floating_ui_instance.position = Vector2(0, -80) # Posun nahoru nad ponorku
+	
+	# Přeposlání signálu do globálního GameManageru a místního UI
+	inventory.inventory_changed.connect(_on_inventory_changed)
 	
 	if health_component:
 		# Takhle se připojuje signál z kódu od verze Godot 4.0
@@ -63,3 +74,8 @@ func _physics_process(delta: float) -> void:
 # Vypořádání se se smrtí - řekneme Autoload managerovi a ten ať už ukončí ponor jak potřebuje
 func _on_death() -> void:
 	GameManager.on_player_death()
+
+func _on_inventory_changed(c: int, m: int) -> void:
+	GameManager.inventory_capacity_changed.emit(c, m)
+	if floating_ui_instance:
+		floating_ui_instance.update_inventory(inventory.items)

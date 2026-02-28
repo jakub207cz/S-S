@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bfi7xr7lncpqn" path="res://wave.tscn" id="10_ir8iy"]
 [ext_resource type="Texture2D" uid="uid://8hupjftfa75e" path="res://assets/vlna.png" id="11_hqns4"]
 [ext_resource type="Texture2D" uid="uid://b3rr27b81xtn7" path="res://assets/submarine_rez.png" id="12_sub3"]
+[ext_resource type="PackedScene" uid="uid://cs8a3m3speedb" path="res://scenes/TraderSubmarine.tscn" id="13_trader"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q6r6c"]
 bg_color = Color(0, 0, 0, 0.3254902)
@@ -220,6 +221,7 @@ materials_label = NodePath("MarginContainer/VBoxContainer/MaterialsLabel")
 hp_label = NodePath("MarginContainer/VBoxContainer/HPLabel")
 
 [node name="MarginContainer" type="MarginContainer" parent="PlayerUI" unique_id=323229580]
+mouse_filter = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -231,6 +233,7 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PlayerUI/MarginContainer" unique_id=624999049]
+mouse_filter = 2
 layout_mode = 2
 
 [node name="HPLabel" type="Label" parent="PlayerUI/MarginContainer/VBoxContainer" unique_id=1395848553]
@@ -504,47 +507,23 @@ icon_alignment = 1
 position = Vector2(52, 3)
 script = ExtResource("5_cliff")
 
-[node name="DepthIcon100" type="AnimatedSprite2D" parent="LeftCliff" unique_id=4000100]
-texture_filter = 1
+[node name="Trader100" parent="LeftCliff" instance=ExtResource("13_trader")]
 position = Vector2(420, 10300)
-scale = Vector2(1.9492188, 1.9296876)
-sprite_frames = SubResource("SpriteFrames_sub_icon")
-autoplay = "default"
 
-[node name="DepthIcon200" type="AnimatedSprite2D" parent="LeftCliff" unique_id=4000200]
-texture_filter = 1
+[node name="Trader200" parent="LeftCliff" instance=ExtResource("13_trader")]
 position = Vector2(420, 20300)
-scale = Vector2(1.9492188, 1.9296876)
-sprite_frames = SubResource("SpriteFrames_sub_icon")
-autoplay = "default"
 
-[node name="DepthIcon400" type="AnimatedSprite2D" parent="LeftCliff" unique_id=4000400]
-texture_filter = 1
+[node name="Trader400" parent="LeftCliff" instance=ExtResource("13_trader")]
 position = Vector2(420, 40300)
-scale = Vector2(1.9492188, 1.9296876)
-sprite_frames = SubResource("SpriteFrames_sub_icon")
-autoplay = "default"
 
-[node name="DepthIcon600" type="AnimatedSprite2D" parent="LeftCliff" unique_id=4000600]
-texture_filter = 1
+[node name="Trader600" parent="LeftCliff" instance=ExtResource("13_trader")]
 position = Vector2(420, 60300)
-scale = Vector2(1.9492188, 1.9296876)
-sprite_frames = SubResource("SpriteFrames_sub_icon")
-autoplay = "default"
 
-[node name="DepthIcon900" type="AnimatedSprite2D" parent="LeftCliff" unique_id=4000900]
-texture_filter = 1
+[node name="Trader900" parent="LeftCliff" instance=ExtResource("13_trader")]
 position = Vector2(420, 90300)
-scale = Vector2(1.9492188, 1.9296876)
-sprite_frames = SubResource("SpriteFrames_sub_icon")
-autoplay = "default"
 
-[node name="DepthIcon1200" type="AnimatedSprite2D" parent="LeftCliff" unique_id=4001200]
-texture_filter = 1
+[node name="Trader1200" parent="LeftCliff" instance=ExtResource("13_trader")]
 position = Vector2(420, 120300)
-scale = Vector2(1.9492188, 1.9296876)
-sprite_frames = SubResource("SpriteFrames_sub_icon")
-autoplay = "default"
 
 [node name="RightCliff" type="Node2D" parent="." unique_id=1862698052]
 position = Vector2(2431, 0)
