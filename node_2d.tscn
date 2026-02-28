@@ -177,6 +177,9 @@ normal = Vector2(0, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqns4"]
 size = Vector2(128, 127)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nr8wp"]
+bg_color = Color(0.09019608, 0.5529412, 0.77254903, 1)
+
 [node name="World" type="Node2D" unique_id=908213786]
 
 [node name="Submarine" parent="." unique_id=1278720274 instance=ExtResource("1_epypp")]
@@ -696,6 +699,37 @@ position = Vector2(2269, 334)
 
 [node name="Wave53" parent="Waves" unique_id=1205856052 instance=ExtResource("10_ir8iy")]
 position = Vector2(2313.0002, 334)
+
+[node name="Wave54" parent="Waves" unique_id=13359148 instance=ExtResource("10_ir8iy")]
+position = Vector2(2357, 334)
+
+[node name="Wave55" parent="Waves" unique_id=1491447218 instance=ExtResource("10_ir8iy")]
+position = Vector2(2379.0002, 333)
+
+[node name="Background" type="Control" parent="." unique_id=1047151097]
+z_index = -1
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3.0
+offset_top = 330.0
+offset_right = 2426.0
+offset_bottom = 1161.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Background" unique_id=238806450]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nr8wp")
 
 [connection signal="pressed" from="PlayerUI/Pause/PausePanel/PauseButtons/Continue" to="PlayerUI/Pause/PausePanel" method="_on_continue_pressed"]
 [connection signal="pressed" from="PlayerUI/Pause/PausePanel/PauseButtons/Options" to="PlayerUI/Pause/PausePanel" method="_on_options_pressed"]
