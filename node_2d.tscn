@@ -130,7 +130,7 @@ size = Vector2(128, 127)
 bg_color = Color(0.09019608, 0.5529412, 0.77254903, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d2bti"]
-bg_color = Color(0.09320182, 0.5526029, 0.7723388, 0.59000003)
+bg_color = Color(0.09320182, 0.5526029, 0.7723388, 0.437)
 
 [node name="World" type="Node2D" unique_id=908213786]
 
@@ -669,7 +669,7 @@ anchor_bottom = 0.5
 offset_left = -3.0
 offset_top = 330.0
 offset_right = 2426.0
-offset_bottom = 1161.0
+offset_bottom = 15330.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -684,8 +684,8 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_nr8wp")
 
 [node name="WaterTopUnderwater" type="Panel" parent="Background" unique_id=1483971753]
-z_index = 10
 show_behind_parent = true
+z_index = 10
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
