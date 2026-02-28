@@ -3,11 +3,14 @@ extends Panel
 @onready var pause_panel: Panel = self
 @onready var pause_buttons: VBoxContainer = %PauseButtons
 @onready var options: Panel = %Options
+@onready var game_paused: Label = $GamePaused
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pause_buttons.visible = true
 	options.visible = false
+	game_paused.visible = true
 	
 func resume():
 	get_tree().paused = false
@@ -30,11 +33,12 @@ func _on_continue_pressed() -> void:
 
 func _on_menu_pressed() -> void:
 	resume()
-	get_tree().change_scene_to_file("res://Scenes/menu/main_menu.tscn")
+	get_tree().change_scene_to_file("res://MainMenu.tscn")
 
 func _on_options_pressed() -> void:
 	pause_buttons.visible = false
 	options.visible = true
+	game_paused.visible = false
 
 func _on_back_pressed() -> void:
 	_ready()

@@ -40,53 +40,53 @@ var engine_level: int = 1
 # 3. Setter Funkce
 # -----------------
 func set_current_depth(value: float) -> void:
-    # Ujistíme se, že hloubka neklesne pod nulu
-    current_depth = maxf(0.0, value)
-    depth_changed.emit(current_depth)
-    
-    # Automatická aktualizace max_depth
-    if current_depth > max_depth_reached:
-        self.max_depth_reached = current_depth # Zde musíme použít `self.`, aby se zavolal setter!
+	# Ujistíme se, že hloubka neklesne pod nulu
+	current_depth = maxf(0.0, value)
+	depth_changed.emit(current_depth)
+	
+	# Automatická aktualizace max_depth
+	if current_depth > max_depth_reached:
+		self.max_depth_reached = current_depth # Zde musíme použít `self.`, aby se zavolal setter!
 
 func set_max_depth_reached(value: float) -> void:
-    max_depth_reached = value
-    max_depth_changed.emit(max_depth_reached)
+	max_depth_reached = value
+	max_depth_changed.emit(max_depth_reached)
 
 func set_collected_materials(value: int) -> void:
-    # Materiály také nesmí jít pod nulu
-    collected_materials = maxi(0, value)
-    materials_changed.emit(collected_materials)
-    
+	# Materiály také nesmí jít pod nulu
+	collected_materials = maxi(0, value)
+	materials_changed.emit(collected_materials)
+	
 func set_stored_materials(value: int) -> void:
-    stored_materials = maxi(0, value)
-    stored_materials_changed.emit(stored_materials)
+	stored_materials = maxi(0, value)
+	stored_materials_changed.emit(stored_materials)
 
 # -----------------
 # 4. Veřejné Funkce Stavu
 # -----------------
 func on_player_death() -> void:
-    # Při smrti jen resetneme co hráč nasbíral během ponoru 
-    # a přesměrujeme ho do záklaní scény.
-    self.collected_materials = 0
-    self.current_depth = 0.0
-    player_died.emit()
-    get_tree().change_scene_to_file("res://scenes/Base.tscn")
+	# Při smrti jen resetneme co hráč nasbíral během ponoru 
+	# a přesměrujeme ho do záklaní scény.
+	self.collected_materials = 0
+	self.current_depth = 0.0
+	player_died.emit()
+	get_tree().change_scene_to_file("res://scenes/Base.tscn")
 
 func on_player_return() -> void:
-    # Při návratu se sebraný loot převede do "banky"
-    self.stored_materials += collected_materials
-    self.collected_materials = 0
-    self.current_depth = 0.0
-    player_returned.emit()
-    get_tree().change_scene_to_file("res://scenes/Base.tscn")
+	# Při návratu se sebraný loot převede do "banky"
+	self.stored_materials += collected_materials
+	self.collected_materials = 0
+	self.current_depth = 0.0
+	player_returned.emit()
+	get_tree().change_scene_to_file("res://scenes/Base.tscn")
 
 func get_speed_multiplier() -> float:
-    # Násobitel rychlosti lodi podle hloubky
-    if current_depth >= 1200.0:
-        return 5.0
-    elif current_depth >= 600.0:
-        return 4.0
-    elif current_depth >= 200.0:
-        return 3.0
-    
-    return 1.5
+	# Násobitel rychlosti lodi podle hloubky
+	if current_depth >= 1200.0:
+		return 5.0
+	elif current_depth >= 600.0:
+		return 4.0
+	elif current_depth >= 200.0:
+		return 3.0
+	
+	return 1.5

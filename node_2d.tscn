@@ -7,12 +7,14 @@
 [ext_resource type="Script" uid="uid://c6gghshxq5p0m" path="res://scripts/CliffGenerator.gd" id="5_cliff"]
 [ext_resource type="Script" uid="uid://wkjp1ejase13" path="res://scripts/options_buttons.gd" id="6_rj586"]
 [ext_resource type="Script" uid="uid://clc3t1bslvo6h" path="res://scripts/audio_manager.gd" id="7_4d7sh"]
+[ext_resource type="Texture2D" uid="uid://b60m5lt64urck" path="res://assets/icon.svg" id="8_4d7sh"]
+[ext_resource type="Script" uid="uid://povdyu0vd3ro" path="res://test.gd" id="9_ir8iy"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_epypp"]
 normal = Vector2(0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q6r6c"]
-bg_color = Color(0, 0, 0, 0.12941177)
+bg_color = Color(0, 0, 0, 0.3254902)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0hol4"]
 bg_color = Color(8.085966e-06, 0.66958594, 0.87921125, 0.8039216)
@@ -119,6 +121,9 @@ shadow_color = Color(0.29, 0.29, 0.29, 0.82)
 shadow_size = 5
 shadow_offset = Vector2(3, 4)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hqns4"]
+size = Vector2(128, 127)
+
 [node name="World" type="Node2D" unique_id=908213786]
 
 [node name="Submarine" parent="." unique_id=1278720274 instance=ExtResource("1_epypp")]
@@ -196,7 +201,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_q6r6c")
 script = ExtResource("4_d21ai")
 
-[node name="Label" type="Label" parent="Pause/PausePanel" unique_id=276463401]
+[node name="GamePaused" type="Label" parent="Pause/PausePanel" unique_id=276463401]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 5
@@ -434,6 +439,17 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_0h7mo")
 text = "BACK"
 icon_alignment = 1
 
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1213926744]
+position = Vector2(264, 357)
+texture = ExtResource("8_4d7sh")
+script = ExtResource("9_ir8iy")
+
+[node name="Area2D" type="Area2D" parent="Sprite2D" unique_id=827297164]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D" unique_id=1207626528]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_hqns4")
+
 [connection signal="pressed" from="Pause/PausePanel/PauseButtons/Continue" to="Pause/PausePanel" method="_on_continue_pressed"]
 [connection signal="pressed" from="Pause/PausePanel/PauseButtons/Options" to="Pause/PausePanel" method="_on_options_pressed"]
 [connection signal="pressed" from="Pause/PausePanel/PauseButtons/Menu" to="Pause/PausePanel" method="_on_menu_pressed"]
@@ -441,3 +457,5 @@ icon_alignment = 1
 [connection signal="toggled" from="Pause/PausePanel/Options/OptionsButtons/Fullscreen" to="Pause/PausePanel/Options/OptionsButtons" method="_on_fullscreen_toggled"]
 [connection signal="toggled" from="Pause/PausePanel/Options/OptionsButtons/VSync" to="Pause/PausePanel/Options/OptionsButtons" method="_on_v_sync_toggled"]
 [connection signal="item_selected" from="Pause/PausePanel/Options/OptionsButtons/ResolutionOption" to="Pause/PausePanel/Options/OptionsButtons" method="_on_resolution_option_item_selected"]
+[connection signal="pressed" from="Pause/PausePanel/Options/Back" to="Pause/PausePanel" method="_on_back_pressed"]
+[connection signal="body_entered" from="Sprite2D/Area2D" to="Sprite2D" method="_on_area_2d_body_entered"]
