@@ -42,7 +42,3 @@ func _on_options_pressed() -> void:
 
 func _on_back_pressed() -> void:
 	_ready()
-
-
-func _on_close_pressed() -> void:
-	get_tree().quit()

@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://b60m5lt64urck" path="res://assets/icon.svg" id="8_4d7sh"]
 [ext_resource type="Script" uid="uid://povdyu0vd3ro" path="res://test.gd" id="9_ir8iy"]
 [ext_resource type="PackedScene" uid="uid://bfi7xr7lncpqn" path="res://wave.tscn" id="10_ir8iy"]
+[ext_resource type="Texture2D" uid="uid://bkfyhxwualuhg" path="res://assets/mrak.png" id="12_x0ka3"]
 [ext_resource type="PackedScene" uid="uid://b8wpx0d677ir3" path="res://scenes/SpeedBoostSubmarine.tscn" id="13_trader"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q6r6c"]
@@ -122,6 +123,7 @@ shadow_offset = Vector2(3, 4)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_epypp"]
 normal = Vector2(0, 1)
+distance = -1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqns4"]
 size = Vector2(128, 127)
@@ -131,6 +133,9 @@ bg_color = Color(0.09019608, 0.5529412, 0.77254903, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d2bti"]
 bg_color = Color(0.09320182, 0.5526029, 0.7723388, 0.437)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ta5nu"]
+bg_color = Color(0.38372943, 0.80103385, 0.99999994, 1)
 
 [node name="World" type="Node2D" unique_id=908213786]
 
@@ -170,16 +175,22 @@ mouse_filter = 2
 
 [node name="HPLabel" type="Label" parent="PlayerUI/MarginContainer/VBoxContainer" unique_id=1395848553]
 layout_mode = 2
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_0hol4")
 theme_override_font_sizes/font_size = 24
 text = "HP: 100/100"
 
 [node name="DepthLabel" type="Label" parent="PlayerUI/MarginContainer/VBoxContainer" unique_id=1548798134]
 layout_mode = 2
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_0hol4")
 theme_override_font_sizes/font_size = 24
-text = "Hloubka: 0m"
+text = "Depth: 0m"
 
 [node name="MaterialsLabel" type="Label" parent="PlayerUI/MarginContainer/VBoxContainer" unique_id=965483389]
 layout_mode = 2
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_0hol4")
 theme_override_font_sizes/font_size = 24
 text = "Loot: 0"
 
@@ -267,19 +278,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_0hol4")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_kdubu")
 theme_override_styles/hover = SubResource("StyleBoxFlat_d21ai")
 text = "EXIT TO MENU"
-icon_alignment = 1
-
-[node name="Close" type="Button" parent="PlayerUI/Pause/PausePanel/PauseButtons" unique_id=446336185]
-texture_filter = 1
-layout_mode = 2
-theme_override_colors/font_pressed_color = Color(0.8, 0.95, 1, 1)
-theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("4_0hol4")
-theme_override_font_sizes/font_size = 45
-theme_override_styles/normal = SubResource("StyleBoxFlat_0hol4")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_kdubu")
-theme_override_styles/hover = SubResource("StyleBoxFlat_d21ai")
-text = "EXIT TO DESKTOP"
 icon_alignment = 1
 
 [node name="Options" type="Panel" parent="PlayerUI/Pause/PausePanel" unique_id=1277302276]
@@ -685,6 +683,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 144.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_nr8wp")
@@ -696,14 +695,73 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 110.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_d2bti")
 
+[node name="Sky" type="Panel" parent="Background" unique_id=2139525933]
+layout_mode = 0
+offset_left = -103.0
+offset_top = -430.0
+offset_right = 2531.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ta5nu")
+
+[node name="Cloud" type="Node" parent="Background/Sky" unique_id=435448623]
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Sky/Cloud" unique_id=1600520232]
+position = Vector2(84, -6.9999924)
+scale = Vector2(0.373366, 0.40865386)
+texture = ExtResource("12_x0ka3")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Background/Sky/Cloud" unique_id=1751989479]
+position = Vector2(325.75, 174)
+scale = Vector2(0.47630718, 0.53846157)
+texture = ExtResource("12_x0ka3")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Background/Sky/Cloud" unique_id=1016355119]
+position = Vector2(599, 32.000004)
+scale = Vector2(0.38194436, 0.4266827)
+texture = ExtResource("12_x0ka3")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Background/Sky/Cloud" unique_id=135806511]
+position = Vector2(918.99994, 175)
+scale = Vector2(0.507353, 0.56490386)
+texture = ExtResource("12_x0ka3")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Background/Sky/Cloud" unique_id=513423394]
+position = Vector2(1445.125, 54.75002)
+scale = Vector2(0.5657678, 0.5805289)
+texture = ExtResource("12_x0ka3")
+
+[node name="Sprite2D6" type="Sprite2D" parent="Background/Sky/Cloud" unique_id=363053485]
+position = Vector2(1587.0001, 104.500015)
+scale = Vector2(0.44689542, 0.46394232)
+texture = ExtResource("12_x0ka3")
+
+[node name="Sprite2D7" type="Sprite2D" parent="Background/Sky/Cloud" unique_id=1419950038]
+position = Vector2(1924.9999, 179)
+scale = Vector2(0.41339874, 0.4423077)
+texture = ExtResource("12_x0ka3")
+
+[node name="Sprite2D8" type="Sprite2D" parent="Background/Sky/Cloud" unique_id=1492464261]
+position = Vector2(2093, -45)
+scale = Vector2(0.41339874, 0.4423077)
+texture = ExtResource("12_x0ka3")
+
+[node name="Sprite2D9" type="Sprite2D" parent="Background/Sky/Cloud" unique_id=1236048179]
+position = Vector2(2342.625, 123.24999)
+scale = Vector2(0.5085787, 0.6286058)
+texture = ExtResource("12_x0ka3")
+
+[node name="Sprite2D10" type="Sprite2D" parent="Background/Sky/Cloud" unique_id=141962015]
+position = Vector2(962.00006, -39)
+scale = Vector2(0.41339874, 0.4423077)
+texture = ExtResource("12_x0ka3")
+
 [connection signal="pressed" from="PlayerUI/Pause/PausePanel/PauseButtons/Continue" to="PlayerUI/Pause/PausePanel" method="_on_continue_pressed"]
 [connection signal="pressed" from="PlayerUI/Pause/PausePanel/PauseButtons/Options" to="PlayerUI/Pause/PausePanel" method="_on_options_pressed"]
 [connection signal="pressed" from="PlayerUI/Pause/PausePanel/PauseButtons/Menu" to="PlayerUI/Pause/PausePanel" method="_on_menu_pressed"]
-[connection signal="pressed" from="PlayerUI/Pause/PausePanel/PauseButtons/Close" to="PlayerUI/Pause/PausePanel" method="_on_close_pressed"]
 [connection signal="toggled" from="PlayerUI/Pause/PausePanel/Options/OptionsButtons/Fullscreen" to="PlayerUI/Pause/PausePanel/Options/OptionsButtons" method="_on_fullscreen_toggled"]
 [connection signal="toggled" from="PlayerUI/Pause/PausePanel/Options/OptionsButtons/VSync" to="PlayerUI/Pause/PausePanel/Options/OptionsButtons" method="_on_v_sync_toggled"]
 [connection signal="item_selected" from="PlayerUI/Pause/PausePanel/Options/OptionsButtons/ResolutionOption" to="PlayerUI/Pause/PausePanel/Options/OptionsButtons" method="_on_resolution_option_item_selected"]

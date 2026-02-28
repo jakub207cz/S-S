@@ -331,7 +331,7 @@ theme_override_font_sizes/font_size = 45
 theme_override_styles/normal = SubResource("StyleBoxFlat_h7a2f")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
-text = "START"
+text = "NEW GAME"
 icon_alignment = 1
 
 [node name="Continue" type="Button" parent="MainMenuButtons" unique_id=221962962]
@@ -574,7 +574,7 @@ texture_filter = 1
 position = Vector2(1071, 289)
 scale = Vector2(2.1953118, 2.1171875)
 sprite_frames = SubResource("SpriteFrames_3fnrj")
-frame_progress = 0.31930164
+frame_progress = 0.9227463
 
 [node name="Bubbles1" type="AnimatedSprite2D" parent="MainMenuSub/Sub" unique_id=1755189926]
 position = Vector2(-32.569405, -23.439116)
@@ -593,13 +593,13 @@ texture_filter = 1
 position = Vector2(241.00002, 186)
 scale = Vector2(5, 5.46875)
 sprite_frames = SubResource("SpriteFrames_xxvoy")
-frame_progress = 0.11404193
+frame_progress = 0.65897965
 
 [node name="Pufferfish" type="AnimatedSprite2D" parent="MainMenuSub" unique_id=1585256692]
 position = Vector2(140.5, 497.25003)
 scale = Vector2(1.3203124, 1.3554686)
 sprite_frames = SubResource("SpriteFrames_d6scf")
-frame_progress = 0.2618342
+frame_progress = 0.14492938
 
 [connection signal="pressed" from="MainMenuButtons/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MainMenuButtons/Options" to="." method="_on_options_pressed"]
