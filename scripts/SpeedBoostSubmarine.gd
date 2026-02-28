@@ -2,9 +2,13 @@ extends Area2D
 class_name TraderSubmarine
 
 var required_items: Dictionary = {}
+var trades_completed: int = 0
 
 var floating_ui_scene: PackedScene = preload("res://scenes/ui/FloatingInventoryUI.tscn")
 var floating_ui_instance: Control
+var reset_timer: Timer
+
+@onready var sprite: AnimatedSprite2D = $Sprite2D
 
 func _ready() -> void:
 	# Vygenerování random 1, 2 nebo 3 položek pro trade
@@ -19,13 +23,32 @@ func _ready() -> void:
 	
 	input_event.connect(_on_input_event)
 	
-	# Začátek časovače pro automatickou obnovu tradů každé 2 minuty
-	var timer = Timer.new()
-	timer.wait_time = 120.0
-	timer.autostart = true
-	timer.one_shot = false
-	timer.timeout.connect(_reset_trade)
-	add_child(timer)
+	# Začátek časovače pro automatickou obnovu tradů: 2 minuty PO splnění
+	reset_timer = Timer.new()
+	reset_timer.wait_time = 120.0
+	reset_timer.autostart = false
+	reset_timer.one_shot = true
+	reset_timer.timeout.connect(_reset_trade)
+	add_child(reset_timer)
+	
+	# Výchozí stav
+	_update_visuals()
+
+func _update_visuals() -> void:
+	# Vždy vrtulkou k levé stěně (čelem doprava)
+	sprite.flip_h = true
+	
+	if trades_completed == 0:
+		sprite.play("wrecked_static")
+		sprite.modulate = Color(0.56, 0.77, 0.9, 1)
+	elif trades_completed == 1:
+		# První trade: začne se hýbat, ale stále zrezivělá
+		sprite.play("wrecked_moving")
+		sprite.modulate = Color(0.56, 0.77, 0.9, 1)
+	elif trades_completed >= 2:
+		# Druhý trade: opravená, vypadá jako hráčova
+		sprite.play("repaired_moving")
+		sprite.modulate = Color.WHITE
 
 func _reset_trade() -> void:
 	# Vyčistit starý úkol a vygenerovat nový
@@ -33,9 +56,11 @@ func _reset_trade() -> void:
 	_generate_requirements()
 	floating_ui_instance.update_inventory(required_items)
 	
-	# Zajistit že po předchozím úspěšném obchodu bude možné oklo opět prokliknout
+	# Zajistit že po předchozím úspěšném obchodu bude možné okno opět prokliknout
 	if not input_event.is_connected(_on_input_event):
 		input_event.connect(_on_input_event)
+	
+	print("Nový trade je k dispozici!")
 
 func _generate_requirements() -> void:
 	# Máme přístup k datovým typům z LootSpawneru (nebo je načteme napřímo)
@@ -104,11 +129,26 @@ func _attempt_trade() -> void:
 				
 		_give_reward()
 		
+		# Zvýšíme počet splněných tradů
+		trades_completed += 1
+		_update_visuals()
+		
 		# Zmizení ikonek (trade splněn)
 		required_items.clear()
 		floating_ui_instance.update_inventory(required_items)
-		# Deaktivace klikání ať neklikne znova
-		input_event.disconnect(_on_input_event)
+		
+		# Deaktivace klikání
+		if input_event.is_connected(_on_input_event):
+			input_event.disconnect(_on_input_event)
+			
+		# Spustíme odpočet na další trade (2 minuty), ALE JEN POKUD NENÍ HOTOVO
+		if trades_completed < 2:
+			reset_timer.start()
+			print("Trade splněn! Další za 2 minuty.")
+		else:
+			# Po 2. tradu je konec, schováme UI
+			floating_ui_instance.visible = false
+			print("Ponorka byla plně opravena a už nic nepotřebuje.")
 	else:
 		print("Nemáš dostatek surovin na trade!")
 
@@ -121,7 +161,7 @@ func _give_reward() -> void:
 			GameManager.apply_speed_boost(GameManager.get_speed_multiplier() + 0.5)
 		1:
 			print("Trade accepted: +Damage/HP")
-			GameManager.engine_level += 1 # Nebo něco podobně dočasného
+			GameManager.engine_level += 1
 		2:
 			print("Trade accepted: +Inventory Space")
 			var players = get_tree().get_nodes_in_group("player")

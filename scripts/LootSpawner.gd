@@ -12,7 +12,6 @@ func _ready() -> void:
 	iron_data.icon = preload("res://icon.svg")
 	oxygen_data.icon = preload("res://icon.svg")
 	fish_data.icon = preload("res://icon.svg")
-	
 	_spawn_fish(30)
 	_spawn_iron(40)
 	_spawn_oxygen(20)

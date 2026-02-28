@@ -1,23 +1,131 @@
 [gd_scene format=3 uid="uid://b8wpx0d677ir3"]
 
 [ext_resource type="Script" uid="uid://bw0nuycqum5jc" path="res://scripts/SpeedBoostSubmarine.gd" id="1_speed"]
-[ext_resource type="Texture2D" uid="uid://b3rr27b81xtn7" path="res://assets/submarine_rez.png" id="2_sub"]
+[ext_resource type="Texture2D" uid="uid://cpga1o050ic4e" path="res://assets/submarine_3.png" id="2_idle"]
+[ext_resource type="Texture2D" uid="uid://b3rr27b81xtn7" path="res://assets/submarine_rez.png" id="3_sub"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_trader"]
-atlas = ExtResource("2_sub")
+atlas = ExtResource("3_sub")
 region = Rect2(0, 0, 128, 128)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_rez1"]
+atlas = ExtResource("3_sub")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rez2"]
+atlas = ExtResource("3_sub")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rez3"]
+atlas = ExtResource("3_sub")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rez4"]
+atlas = ExtResource("3_sub")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rez5"]
+atlas = ExtResource("3_sub")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rez6"]
+atlas = ExtResource("3_sub")
+region = Rect2(128, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle1"]
+atlas = ExtResource("2_idle")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle2"]
+atlas = ExtResource("2_idle")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle3"]
+atlas = ExtResource("2_idle")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle4"]
+atlas = ExtResource("2_idle")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle5"]
+atlas = ExtResource("2_idle")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle6"]
+atlas = ExtResource("2_idle")
+region = Rect2(128, 256, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_trader"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle6")
+}],
+"loop": true,
+"name": &"repaired_moving",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rez1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rez2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rez3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rez4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rez5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rez6")
+}],
+"loop": true,
+"name": &"wrecked_moving",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trader")
+}],
+"loop": true,
+"name": &"wrecked_static",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_speed"]
-size = Vector2(141, 105)
+size = Vector2(240, 160)
 
 [node name="SpeedBoostSubmarine" type="Area2D" unique_id=1925210616]
-z_as_relative = false
 script = ExtResource("1_speed")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1498669066]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1498669066]
+modulate = Color(0.56, 0.77, 0.9, 1)
 texture_filter = 1
 scale = Vector2(1.9, 1.9)
-texture = SubResource("AtlasTexture_trader")
+sprite_frames = SubResource("SpriteFrames_trader")
+animation = &"wrecked_static"
+flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1203516346]
 position = Vector2(-1.5, 7.5)
