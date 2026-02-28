@@ -13,6 +13,7 @@ class_name Submarine
 # Očekáváme, že v Editoru pod tuto ponorku přidáme HealthComponent Node.
 # V _ready ho napojíme na funkci on_death
 @onready var health_component: HealthComponent = $HealthComponent
+@onready var sprite: AnimatedSprite2D = $Sprite2D
 
 func _ready() -> void:
 	if health_component:
@@ -37,11 +38,19 @@ func _physics_process(delta: float) -> void:
 	var base_speed_with_upgrades = max_speed + ((GameManager.engine_level - 1) * 50.0)
 	var actual_speed = base_speed_with_upgrades * GameManager.get_speed_multiplier()
 
-	# 3. Fyzika
+	# 3. Fyzika a Animace
 	if input_vector != Vector2.ZERO:
 		velocity = velocity.move_toward(input_vector * actual_speed, acceleration * delta)
+		sprite.play("movement")
+		
+		# Převrácení spritu, pokud plujeme doprava (výchozí sprite zřejmě míří doleva)
+		if input_vector.x > 0:
+			sprite.flip_h = true
+		elif input_vector.x < 0:
+			sprite.flip_h = false
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, water_friction * delta)
+		sprite.play("default")
 
 	move_and_slide()
 
