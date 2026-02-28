@@ -4,26 +4,17 @@ extends VBoxContainer
 @onready var fullscreen_checkbox: CheckBox = $Fullscreen
 @onready var vsync_checkbox: CheckBox = $VSync
 
-const RESOLUTIONS = [
-	Vector2i(2560, 1440),
-	Vector2i(1920, 1080),
-	Vector2i(1366, 768),
-	Vector2i(1280, 720),
-	Vector2i(1024, 768)
-]
-
 func _ready() -> void:
-	for res in RESOLUTIONS:
-		resolution_option.add_item(str(res.x) + "x" + str(res.y))
-
 	# Načíst stav UI ze SettingsManageru místo z výchozích hodnot scény
 	fullscreen_checkbox.button_pressed = SettingsManager.fullscreen
 	vsync_checkbox.button_pressed = SettingsManager.vsync
 	
-	# Vybrat správné rozlišení v dropdownu
+	# Vybrat správné rozlišení v dropdownu podle textu definovaného v Editoru (Items)
 	var current_res = SettingsManager.resolution
-	for i in range(RESOLUTIONS.size()):
-		if RESOLUTIONS[i] == current_res:
+	var res_string = str(current_res.x) + "x" + str(current_res.y)
+	
+	for i in range(resolution_option.item_count):
+		if resolution_option.get_item_text(i) == res_string:
 			resolution_option.select(i)
 			break
 
@@ -38,11 +29,15 @@ func _on_v_sync_toggled(toggled_on: bool) -> void:
 	SettingsManager.save_settings()
 
 func _on_resolution_option_item_selected(index: int) -> void:
-	var size = RESOLUTIONS[index]
-	SettingsManager.resolution = size
+	var text = resolution_option.get_item_text(index)
+	var parts = text.split("x")
 	
-	# Pokud jsme ve windowed módu, rovnou aplikujeme, jinak to bude vidět po vypnutí fullscreenu
-	if not SettingsManager.fullscreen:
-		SettingsManager.apply_settings()
+	if parts.size() == 2:
+		var size = Vector2i(parts[0].to_int(), parts[1].to_int())
+		SettingsManager.resolution = size
 		
-	SettingsManager.save_settings()
+		# Pokud jsme ve windowed módu, rovnou aplikujeme, jinak to bude vidět po vypnutí fullscreenu
+		if not SettingsManager.fullscreen:
+			SettingsManager.apply_settings()
+			
+		SettingsManager.save_settings()

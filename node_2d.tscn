@@ -586,82 +586,124 @@ shape = SubResource("RectangleShape2D_hqns4")
 position = Vector2(52, 334)
 
 [node name="Wave2" parent="Waves" unique_id=731824589 instance=ExtResource("10_ir8iy")]
-position = Vector2(143, 334)
+position = Vector2(112, 334)
 
 [node name="Wave3" parent="Waves" unique_id=831824589 instance=ExtResource("10_ir8iy")]
-position = Vector2(233, 334)
+position = Vector2(172, 334)
 
 [node name="Wave4" parent="Waves" unique_id=931824589 instance=ExtResource("10_ir8iy")]
-position = Vector2(324.00003, 334)
+position = Vector2(232, 334)
 
 [node name="Wave5" parent="Waves" unique_id=1031824589 instance=ExtResource("10_ir8iy")]
-position = Vector2(415, 333)
+position = Vector2(292, 333)
 
 [node name="Wave6" parent="Waves" unique_id=1131824589 instance=ExtResource("10_ir8iy")]
-position = Vector2(506, 333)
+position = Vector2(352, 333)
 
 [node name="Wave7" parent="Waves" unique_id=1231824589 instance=ExtResource("10_ir8iy")]
-position = Vector2(596, 333)
+position = Vector2(412, 333)
 
 [node name="Wave8" parent="Waves" unique_id=1331824589 instance=ExtResource("10_ir8iy")]
-position = Vector2(687, 333)
+position = Vector2(472, 333)
 
 [node name="Wave9" parent="Waves" unique_id=1431824589 instance=ExtResource("10_ir8iy")]
-position = Vector2(778.00006, 333)
+position = Vector2(532, 333)
 
 [node name="Wave10" parent="Waves" unique_id=1531824589 instance=ExtResource("10_ir8iy")]
-position = Vector2(867.00006, 333)
+position = Vector2(592, 333)
 
 [node name="Wave11" parent="Waves" unique_id=1631824589 instance=ExtResource("10_ir8iy")]
-position = Vector2(958.00006, 333)
+position = Vector2(652, 333)
 
 [node name="Wave12" parent="Waves" unique_id=1731824589 instance=ExtResource("10_ir8iy")]
-position = Vector2(1048.0001, 333)
+position = Vector2(712, 333)
 
 [node name="Wave13" parent="Waves" unique_id=1831824589 instance=ExtResource("10_ir8iy")]
-position = Vector2(1139.0001, 333)
+position = Vector2(772, 333)
 
 [node name="Wave14" parent="Waves" unique_id=1931824589 instance=ExtResource("10_ir8iy")]
-position = Vector2(1229, 333)
+position = Vector2(832, 333)
 
 [node name="Wave15" parent="Waves" unique_id=2031824589 instance=ExtResource("10_ir8iy")]
-position = Vector2(1320.0001, 333)
+position = Vector2(892, 333)
 
 [node name="Wave16" parent="Waves" unique_id=2131824589 instance=ExtResource("10_ir8iy")]
-position = Vector2(1411.0001, 332)
+position = Vector2(952, 332)
 
 [node name="Wave17" parent="Waves" unique_id=-2063142707 instance=ExtResource("10_ir8iy")]
-position = Vector2(1500.0001, 332)
+position = Vector2(1012, 332)
 
 [node name="Wave18" parent="Waves" unique_id=-1963142707 instance=ExtResource("10_ir8iy")]
-position = Vector2(1589.0001, 332)
+position = Vector2(1072, 332)
 
 [node name="Wave19" parent="Waves" unique_id=-1863142707 instance=ExtResource("10_ir8iy")]
-position = Vector2(1680.0001, 333)
+position = Vector2(1132, 333)
 
 [node name="Wave20" parent="Waves" unique_id=-1763142707 instance=ExtResource("10_ir8iy")]
-position = Vector2(1771.0001, 332)
+position = Vector2(1192, 332)
 
 [node name="Wave21" parent="Waves" unique_id=-1663142707 instance=ExtResource("10_ir8iy")]
-position = Vector2(1861.0001, 333)
+position = Vector2(1252, 333)
 
 [node name="Wave22" parent="Waves" unique_id=-1563142707 instance=ExtResource("10_ir8iy")]
-position = Vector2(2310, 333)
+position = Vector2(1312, 333)
 
 [node name="Wave23" parent="Waves" unique_id=1440049479 instance=ExtResource("10_ir8iy")]
-position = Vector2(1951, 333)
+position = Vector2(1372, 333)
 
 [node name="Wave24" parent="Waves" unique_id=751647050 instance=ExtResource("10_ir8iy")]
-position = Vector2(2042, 332)
+position = Vector2(1432, 332)
 
 [node name="Wave25" parent="Waves" unique_id=1230544466 instance=ExtResource("10_ir8iy")]
-position = Vector2(2132, 333)
+position = Vector2(1492, 333)
 
 [node name="Wave26" parent="Waves" unique_id=250540447 instance=ExtResource("10_ir8iy")]
-position = Vector2(2219.0002, 333)
+position = Vector2(1552, 333)
 
 [node name="Wave27" parent="Waves" instance=ExtResource("10_ir8iy")]
-position = Vector2(2400, 333)
+position = Vector2(1612, 333)
+
+[node name="Wave28" parent="Waves" instance=ExtResource("10_ir8iy")]
+position = Vector2(1672, 333)
+
+[node name="Wave29" parent="Waves" instance=ExtResource("10_ir8iy")]
+position = Vector2(1732, 333)
+
+[node name="Wave30" parent="Waves" instance=ExtResource("10_ir8iy")]
+position = Vector2(1792, 333)
+
+[node name="Wave31" parent="Waves" instance=ExtResource("10_ir8iy")]
+position = Vector2(1852, 333)
+
+[node name="Wave32" parent="Waves" instance=ExtResource("10_ir8iy")]
+position = Vector2(1912, 333)
+
+[node name="Wave33" parent="Waves" instance=ExtResource("10_ir8iy")]
+position = Vector2(1972, 333)
+
+[node name="Wave34" parent="Waves" instance=ExtResource("10_ir8iy")]
+position = Vector2(2032, 333)
+
+[node name="Wave35" parent="Waves" instance=ExtResource("10_ir8iy")]
+position = Vector2(2092, 333)
+
+[node name="Wave36" parent="Waves" instance=ExtResource("10_ir8iy")]
+position = Vector2(2152, 333)
+
+[node name="Wave37" parent="Waves" instance=ExtResource("10_ir8iy")]
+position = Vector2(2212, 333)
+
+[node name="Wave38" parent="Waves" instance=ExtResource("10_ir8iy")]
+position = Vector2(2272, 333)
+
+[node name="Wave39" parent="Waves" instance=ExtResource("10_ir8iy")]
+position = Vector2(2332, 333)
+
+[node name="Wave40" parent="Waves" instance=ExtResource("10_ir8iy")]
+position = Vector2(2392, 333)
+
+[node name="Wave41" parent="Waves" instance=ExtResource("10_ir8iy")]
+position = Vector2(2452, 333)
 
 [node name="WaveReverse3" type="AnimatedSprite2D" parent="Waves/Wave26" unique_id=238260060]
 position = Vector2(592.5, -62.499935)

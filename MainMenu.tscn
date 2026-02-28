@@ -232,6 +232,19 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
 text = "START"
 icon_alignment = 1
 
+[node name="Continue" type="Button" parent="MainMenuButtons" unique_id=221962962]
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.8, 0.95, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("Font_peaberry")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_h7a2f")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+text = "CONTINUE"
+icon_alignment = 1
+
 [node name="Options" type="Button" parent="MainMenuButtons" unique_id=1436794756]
 texture_filter = 1
 layout_mode = 2
@@ -243,19 +256,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_h7a2f")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
 text = "OPTIONS"
-icon_alignment = 1
-
-[node name="Exit" type="Button" parent="MainMenuButtons" unique_id=1429964377]
-texture_filter = 1
-layout_mode = 2
-theme_override_colors/font_pressed_color = Color(0.8, 0.95, 1, 1)
-theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("Font_peaberry")
-theme_override_font_sizes/font_size = 45
-theme_override_styles/normal = SubResource("StyleBoxFlat_h7a2f")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_pressed")
-theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
-text = "EXIT"
 icon_alignment = 1
 
 [node name="GameName" type="Panel" parent="." unique_id=158569611]
@@ -426,6 +426,18 @@ text = "RESOLUTION"
 layout_mode = 2
 theme_override_fonts/font = ExtResource("Font_peaberry")
 theme_override_font_sizes/font_size = 20
+selected = 3
+item_count = 5
+popup/item_0/text = "2560x1440"
+popup/item_0/id = 0
+popup/item_1/text = "1920x1080"
+popup/item_1/id = 1
+popup/item_2/text = "1366x768"
+popup/item_2/id = 2
+popup/item_3/text = "1280x720"
+popup/item_3/id = 3
+popup/item_4/text = "1024x768"
+popup/item_4/id = 4
 
 [node name="Back" type="Button" parent="Options" unique_id=2111139160]
 texture_filter = 1
@@ -476,7 +488,6 @@ frame_progress = 0.32337046
 
 [connection signal="pressed" from="MainMenuButtons/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MainMenuButtons/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="MainMenuButtons/Exit" to="." method="_on_exit_pressed"]
 [connection signal="toggled" from="Options/OptionsButtons/Fullscreen" to="Options/OptionsButtons" method="_on_fullscreen_toggled"]
 [connection signal="toggled" from="Options/OptionsButtons/VSync" to="Options/OptionsButtons" method="_on_v_sync_toggled"]
 [connection signal="item_selected" from="Options/OptionsButtons/ResolutionOption" to="Options/OptionsButtons" method="_on_resolution_option_item_selected"]
