@@ -182,8 +182,9 @@ is_right_side = true
 position = Vector2(569, 234)
 shape = SubResource("WorldBoundaryShape2D_epypp")
 
-[node name="Pause" type="Node" parent="." unique_id=1894569411]
+[node name="Pause" type="CanvasLayer" parent="." unique_id=1894569411]
 process_mode = 3
+
 [node name="PausePanel" type="Panel" parent="Pause" unique_id=743212479]
 unique_name_in_owner = true
 visible = false
