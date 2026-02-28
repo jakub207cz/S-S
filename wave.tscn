@@ -1,36 +1,7 @@
 [gd_scene format=3 uid="uid://bfi7xr7lncpqn"]
 
 [ext_resource type="Script" uid="uid://dfqybmasqn5e5" path="res://wave.gd" id="1_sj2kr"]
-[ext_resource type="Texture2D" uid="uid://2ms4qox3y6so" path="res://assets/vlna_1.png" id="2_sj2kr"]
 [ext_resource type="Texture2D" uid="uid://bx53v23bwf0n4" path="res://assets/vlny_3.png" id="3_j10k6"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j10k6"]
-atlas = ExtResource("2_sj2kr")
-region = Rect2(0, 0, 126, 72)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1aab6"]
-atlas = ExtResource("2_sj2kr")
-region = Rect2(126, 0, 126, 72)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dq607"]
-atlas = ExtResource("2_sj2kr")
-region = Rect2(0, 72, 126, 72)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_icnwx"]
-atlas = ExtResource("2_sj2kr")
-region = Rect2(126, 72, 126, 72)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ox6lv"]
-atlas = ExtResource("2_sj2kr")
-region = Rect2(0, 144, 126, 72)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7tikp"]
-atlas = ExtResource("2_sj2kr")
-region = Rect2(126, 144, 126, 72)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3gdhu"]
-atlas = ExtResource("2_sj2kr")
-region = Rect2(0, 216, 126, 72)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b0o3h"]
 atlas = ExtResource("3_j10k6")
@@ -64,32 +35,6 @@ region = Rect2(756, 0, 126, 72)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_j10k6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1aab6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dq607")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_icnwx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ox6lv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7tikp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3gdhu")
-}],
-"loop": true,
-"name": &"default",
-"speed": 2.5
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_b0o3h")
 }, {
 "duration": 1.0,
@@ -111,7 +56,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_53yc1")
 }],
 "loop": true,
-"name": &"new_animation",
+"name": &"default",
 "speed": 2.5
 }]
 
@@ -122,5 +67,4 @@ script = ExtResource("1_sj2kr")
 [node name="WaveReverse" type="AnimatedSprite2D" parent="." unique_id=2109362261]
 position = Vector2(70.00006, -37.499966)
 sprite_frames = SubResource("SpriteFrames_qk5ts")
-animation = &"new_animation"
-frame_progress = 0.54164433
+frame_progress = 0.4557303

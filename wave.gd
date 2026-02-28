@@ -10,11 +10,16 @@ func _ready() -> void:
 	var frame_count = wave_reverse.sprite_frames.get_frame_count("default")
 	
 	# Vypočítáme pořadí vlny podle její pozice
-	# Tím získáme indexy 1, 2, 3, 4 postupně za sebou
 	var wave_index = int(global_position.x / 60.0)
 	
-	# Nastavíme počáteční snímek na zbytek po dělení, aby to plynule cyklilo zpět na nulu
-	wave_reverse.frame = wave_index % frame_count
+	# Nastavíme počáteční snímek na přeskáčku:
+	# Sudé vlny začnou na snímku 0 (nejnižší)
+	# Liché vlny začnou na posledním snímku (nejvyšší)
+	if wave_index % 2 == 0:
+		wave_reverse.frame = 0
+	else:
+		if frame_count > 0:
+			wave_reverse.frame = frame_count - 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
