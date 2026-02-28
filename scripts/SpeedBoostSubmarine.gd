@@ -9,8 +9,12 @@ var floating_ui_instance: Control
 var reset_timer: Timer
 
 @onready var sprite: AnimatedSprite2D = $Sprite2D
+@onready var done_label: Label = $DoneLabel
 
 func _ready() -> void:
+	# Vynutíme zapnutí klikání
+	input_pickable = true
+	
 	# Vygenerování random 1, 2 nebo 3 položek pro trade
 	_generate_requirements()
 	
@@ -148,6 +152,8 @@ func _attempt_trade() -> void:
 		else:
 			# Po 2. tradu je konec, schováme UI
 			floating_ui_instance.visible = false
+			if done_label:
+				done_label.visible = true
 			print("Ponorka byla plně opravena a už nic nepotřebuje.")
 	else:
 		print("Nemáš dostatek surovin na trade!")

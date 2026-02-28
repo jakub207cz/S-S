@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cpga1o050ic4e" path="res://assets/submarine_3.png" id="2_idle"]
 [ext_resource type="Texture2D" uid="uid://b3rr27b81xtn7" path="res://assets/submarine_rez.png" id="3_sub"]
 [ext_resource type="Texture2D" uid="uid://boc51ej302rna" path="res://assets/submarine_4.png" id="4_final"]
+[ext_resource type="FontFile" uid="uid://cxknwea7xsam7" path="res://assets/Peaberry-Base.otf" id="5_font"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_final1"]
 atlas = ExtResource("4_final")
@@ -173,6 +174,19 @@ size = Vector2(18.500002, 17.5)
 
 [node name="SpeedBoostSubmarine" type="StaticBody2D" unique_id=1302135277]
 script = ExtResource("1_speed")
+
+[node name="DoneLabel" type="Label" parent="." unique_id=891011122]
+visible = false
+texture_filter = 1
+offset_left = 43.0
+offset_top = -47.0
+offset_right = 125.0
+offset_bottom = -7.0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 25
+text = "DONE"
+horizontal_alignment = 1
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1498669066]
 modulate = Color(0.56, 0.77, 0.9, 1)
