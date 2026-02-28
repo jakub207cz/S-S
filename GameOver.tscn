@@ -211,7 +211,7 @@ texture_filter = 1
 position = Vector2(861, 381.00003)
 scale = Vector2(3.8125002, 3.351563)
 sprite_frames = SubResource("SpriteFrames_w4h2f")
-frame_progress = 0.93247694
+frame_progress = 0.9366811
 
 [connection signal="pressed" from="GameOverButtons/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="GameOverButtons/Menu" to="." method="_on_menu_pressed"]
