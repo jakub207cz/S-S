@@ -42,15 +42,17 @@ func _update_visuals() -> void:
 	# Vždy vrtulkou k levé stěně (čelem doprava)
 	sprite.flip_h = false
 	
+	# Zrezlé ponorce nastavíme jen velmi mírně tmavší nádech (jako "špína"), ale bez vlivu vody,
+	# protože samotná voda už ji kryje vrstvou WaterTopUnderwater skrz rendering Z-index.
+	var base_mod: Color = Color(0.8, 0.8, 0.8, 1)
+
 	if trades_completed == 0:
 		sprite.play("wrecked_static")
-		sprite.modulate = Color(0.56, 0.77, 0.9, 1)
+		sprite.modulate = base_mod
 	elif trades_completed == 1:
-		# První trade: začne se hýbat, ale stále zrezivělá
 		sprite.play("wrecked_moving")
-		sprite.modulate = Color(0.56, 0.77, 0.9, 1)
+		sprite.modulate = base_mod
 	elif trades_completed >= 2:
-		# Druhý trade: opravená, používá submarine_4
 		sprite.play("repaired_final")
 		sprite.modulate = Color.WHITE
 
@@ -96,10 +98,10 @@ func _setup_shallow_zone(fish, iron, oxygen) -> void:
 		required_items[iron] = iron_amt
 
 func _setup_dark_zone(fish, iron, oxygen) -> void:
-	# Temnota: 2-5 ryb, 6-9 železa, 2-5 kyslíky
+	# Temnota: 2-5 ryb, 6-9 železa, 1-3 kyslíky
 	required_items[fish] = randi() % 4 + 2
 	required_items[iron] = randi() % 4 + 6
-	required_items[oxygen] = randi() % 4 + 2
+	required_items[oxygen] = randi() % 3 + 1
 
 func _setup_deep_zone(fish, iron, oxygen) -> void:
 	# Hlubina: 0-2 ryby, 4-6 železa, 6-10 kyslíku
